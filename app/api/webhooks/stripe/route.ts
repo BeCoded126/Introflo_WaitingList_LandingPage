@@ -8,8 +8,8 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
   const body = await req.text();
-  const headersList = headers();
-  const signature = headersList.get("stripe-signature");
+  // Use the raw request headers to retrieve stripe signature
+  const signature = req.headers.get("stripe-signature");
 
   let event: Stripe.Event;
 
@@ -22,7 +22,10 @@ export async function POST(req: Request) {
     );
   }
 
-  const supabase = createClient();
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   try {
     switch (event.type) {
@@ -154,7 +157,7 @@ async function handleInvoicePaymentFailed(
     .update({
       status: "past_due",
       last_payment_status: "failed",
-      last_payment_error: invoice.last_payment_error?.message,
+      last_payment_error: (invoice as any).last_payment_error?.message,
     })
     .eq("stripe_id", subscriptionId);
 }

@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
+import NextAuth from 'next-auth'
 import { createClient } from "@supabase/supabase-js";
 import { Provider } from "@supabase/supabase-js";
 
@@ -59,9 +60,9 @@ export const authConfig = {
           .single();
 
         if (user) {
-          session.user.id = user.id;
-          session.user.orgId = user.org_id;
-          session.user.role = user.role;
+          (session.user as any).id = user.id;
+          (session.user as any).orgId = user.org_id;
+          (session.user as any).role = user.role;
         }
       }
       return session;
