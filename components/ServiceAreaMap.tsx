@@ -21,6 +21,7 @@ interface ServiceAreaMapProps {
     lng: number
     radiusMiles: number
   }>
+  facilityId?: string
   onAreaChange?: (areas: Array<{
     lat: number
     lng: number
@@ -59,6 +60,7 @@ export default function ServiceAreaMap({
     }
     setCircles(newCircles)
     onAreaChange?.(newCircles)
+    saveAreas(newCircles)
   }
 
   const handleCircleCenterChange = (index: number, center: google.maps.LatLng) => {
@@ -70,6 +72,7 @@ export default function ServiceAreaMap({
     }
     setCircles(newCircles)
     onAreaChange?.(newCircles)
+    saveAreas(newCircles)
   }
 
   const handleMapClick = (event: google.maps.MapMouseEvent) => {
@@ -85,6 +88,22 @@ export default function ServiceAreaMap({
     const newCircles = [...circles, newCircle]
     setCircles(newCircles)
     onAreaChange?.(newCircles)
+    saveAreas(newCircles)
+  }
+
+  async function saveAreas(areasToSave: typeof circles) {
+    try {
+      // Try to persist to API if facilityId is provided
+      if (!facilityId) return
+
+      await fetch('/api/service-areas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ facilityId, areas: areasToSave }),
+      })
+    } catch (err) {
+      console.error('Failed to save service areas', err)
+    }
   }
 
   return (

@@ -1,9 +1,21 @@
 import { Suspense } from 'react'
 import ServiceAreaMap from '@/components/ServiceAreaMap'
-import { getFacilityServiceAreas } from '@/lib/api'
+import { getFacilityServiceAreas, getCurrentUser, createClient } from '@/lib/api'
 
 export default async function ServiceAreasPage() {
   const areas = await getFacilityServiceAreas()
+  // Determine a facilityId to associate saves with. Prefer first facility in the user's org.
+  const user = await getCurrentUser()
+  let facilityId: string | undefined = undefined
+  if (user?.org_id) {
+    const supabase = createClient()
+    const { data: facilities } = await supabase
+      .from('facilities')
+      .select('id')
+      .eq('org_id', user.org_id)
+      .limit(1)
+    if (facilities && facilities.length > 0) facilityId = facilities[0].id
+  }
 
   return (
     <div className="py-10">
@@ -27,6 +39,7 @@ export default async function ServiceAreasPage() {
                   <ServiceAreaMap
                     apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
                     serviceAreas={areas}
+                    facilityId={facilityId}
                     isEditable={true}
                     onAreaChange={async (areas) => {
                       // Handle area changes
