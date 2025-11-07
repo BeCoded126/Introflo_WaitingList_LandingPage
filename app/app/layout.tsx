@@ -16,9 +16,7 @@ export default async function DashboardLayout({
 
   // When Supabase is not configured in development, allow preview without redirect
   if (!isSupabaseConfigured && process.env.NODE_ENV !== "production") {
-    return (
-      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-    );
+    return <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>;
   }
 
   const user = await getCurrentUser();
@@ -26,7 +24,5 @@ export default async function DashboardLayout({
     redirect("/auth/signin");
   }
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-  );
+  return <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>;
 }

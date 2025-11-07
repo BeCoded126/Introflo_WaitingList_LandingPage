@@ -38,7 +38,10 @@ const makeMockClient = () => {
         return { error: new Error("Supabase not configured") };
       },
       onAuthStateChange(_cb: any) {
-        return { data: { subscription: { unsubscribe() {} } }, error: null } as any;
+        return {
+          data: { subscription: { unsubscribe() {} } },
+          error: null,
+        } as any;
       },
     },
     from() {

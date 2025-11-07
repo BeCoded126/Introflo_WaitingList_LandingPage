@@ -45,7 +45,14 @@ export default function MobileNav({
         className={`mobile-nav-btn ${currentView === "cards" ? "active" : ""}`}
         onClick={handleCardsClick}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
           <rect x="3" y="3" width="7" height="7" rx="1" />
           <rect x="14" y="3" width="7" height="7" rx="1" />
           <rect x="14" y="14" width="7" height="7" rx="1" />
@@ -59,7 +66,14 @@ export default function MobileNav({
         className={`mobile-nav-btn ${currentView === "chat" ? "active" : ""}`}
         onClick={handleChatClick}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
         </svg>
         <span>Chats</span>
@@ -68,10 +82,19 @@ export default function MobileNav({
 
       {/* Profile Button */}
       <button
-        className={`mobile-nav-btn ${currentView === "profile" ? "active" : ""}`}
+        className={`mobile-nav-btn ${
+          currentView === "profile" ? "active" : ""
+        }`}
         onClick={handleProfileClick}
       >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
           <circle cx="12" cy="7" r="4" />
         </svg>

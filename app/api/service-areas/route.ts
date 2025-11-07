@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { createServerClient } from '@supabase/ssr';
-import { canViewServiceAreas, canManageServiceAreas } from '@/lib/rbac';
+import { createServerClient } from "@supabase/ssr";
+import { canViewServiceAreas, canManageServiceAreas } from "@/lib/rbac";
 
 // Single implementation: uses request cookies to initialize Supabase and performs CRUD
 export async function GET(request: NextRequest) {
@@ -120,9 +120,15 @@ export async function PUT(request: NextRequest) {
     .eq("id", id)
     .single();
   if (areaErr || !areaRow)
-    return NextResponse.json({ error: "Service area not found" }, { status: 404 });
+    return NextResponse.json(
+      { error: "Service area not found" },
+      { status: 404 }
+    );
 
-  const userOrError = await canManageServiceAreas(supabase, areaRow.facility_id);
+  const userOrError = await canManageServiceAreas(
+    supabase,
+    areaRow.facility_id
+  );
   if (userOrError instanceof NextResponse) return userOrError;
 
   const updates: any = {};
@@ -165,9 +171,15 @@ export async function DELETE(request: NextRequest) {
     .eq("id", id)
     .single();
   if (areaErr || !areaRow)
-    return NextResponse.json({ error: "Service area not found" }, { status: 404 });
+    return NextResponse.json(
+      { error: "Service area not found" },
+      { status: 404 }
+    );
 
-  const userOrError = await canManageServiceAreas(supabase, areaRow.facility_id);
+  const userOrError = await canManageServiceAreas(
+    supabase,
+    areaRow.facility_id
+  );
   if (userOrError instanceof NextResponse) return userOrError;
 
   const { error } = await supabase.from("service_areas").delete().eq("id", id);

@@ -11,13 +11,20 @@ type Props = {
   onSkip?: (f: Facility) => void;
 };
 
-export default function SwipeDeck({ items = [], facilities = [], onMatch, onSkip }: Props) {
+export default function SwipeDeck({
+  items = [],
+  facilities = [],
+  onMatch,
+  onSkip,
+}: Props) {
   const [stack, setStack] = useState<Facility[]>([]);
   const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(
     null
   );
   const [isAnimating, setIsAnimating] = useState(false);
-  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
+    null
+  );
   const [touchOffset, setTouchOffset] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -71,9 +78,9 @@ export default function SwipeDeck({ items = [], facilities = [], onMatch, onSkip
 
   function handleTouchEnd() {
     if (!touchStart || isAnimating) return;
-    
+
     const swipeThreshold = 100; // pixels
-    
+
     if (Math.abs(touchOffset.x) > swipeThreshold) {
       if (touchOffset.x > 0) {
         // Swiped right - match
@@ -83,7 +90,7 @@ export default function SwipeDeck({ items = [], facilities = [], onMatch, onSkip
         handleSkip();
       }
     }
-    
+
     // Reset touch state
     setTouchStart(null);
     setTouchOffset({ x: 0, y: 0 });
@@ -97,14 +104,18 @@ export default function SwipeDeck({ items = [], facilities = [], onMatch, onSkip
   const top = stack[0];
 
   // Calculate transform style for dragging
-  const cardTransform = touchStart && !isAnimating
-    ? `translate(${touchOffset.x}px, ${touchOffset.y}px) rotate(${touchOffset.x * 0.1}deg)`
-    : '';
+  const cardTransform =
+    touchStart && !isAnimating
+      ? `translate(${touchOffset.x}px, ${touchOffset.y}px) rotate(${
+          touchOffset.x * 0.1
+        }deg)`
+      : "";
 
   // Calculate opacity for visual feedback
-  const cardOpacity = touchStart && !isAnimating
-    ? Math.max(0.5, 1 - Math.abs(touchOffset.x) / 300)
-    : 1;
+  const cardOpacity =
+    touchStart && !isAnimating
+      ? Math.max(0.5, 1 - Math.abs(touchOffset.x) / 300)
+      : 1;
 
   return (
     <div className={styles["swipe-deck"]}>
@@ -118,7 +129,7 @@ export default function SwipeDeck({ items = [], facilities = [], onMatch, onSkip
             style={{
               transform: cardTransform,
               opacity: cardOpacity,
-              transition: touchStart ? 'none' : 'all 0.4s ease-out',
+              transition: touchStart ? "none" : "all 0.4s ease-out",
             }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}

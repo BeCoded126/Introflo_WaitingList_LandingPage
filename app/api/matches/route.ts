@@ -60,16 +60,24 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
 
   // Add placeholder images for facilities that don't have a logo
-  const matches = (data || []).map(match => ({
+  const matches = (data || []).map((match) => ({
     ...match,
     facility_a: {
       ...match.facility_a,
-      logo_url: match.facility_a?.logo_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(match.facility_a?.name || 'Business')}&background=random`
+      logo_url:
+        match.facility_a?.logo_url ||
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          match.facility_a?.name || "Business"
+        )}&background=random`,
     },
     facility_b: {
       ...match.facility_b,
-      logo_url: match.facility_b?.logo_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(match.facility_b?.name || 'Business')}&background=random`
-    }
+      logo_url:
+        match.facility_b?.logo_url ||
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          match.facility_b?.name || "Business"
+        )}&background=random`,
+    },
   }));
 
   return NextResponse.json({ matches });

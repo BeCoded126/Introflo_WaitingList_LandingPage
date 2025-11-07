@@ -151,11 +151,17 @@ export default function ServiceAreaMap({
             onRadiusChanged={() => {
               // Event typing from the library is loose here; retrieve radius from our local state fallback
               // (This will not capture interactive drag radius in types, but avoids TS error.)
-              handleCircleRadiusChange(index, circles[index].radiusMiles * 1609.34);
+              handleCircleRadiusChange(
+                index,
+                circles[index].radiusMiles * 1609.34
+              );
             }}
             onCenterChanged={() => {
               // The map library's typed event provides no args in types — use current circle center
-              handleCircleCenterChange(index, new google.maps.LatLng(circles[index].lat, circles[index].lng));
+              handleCircleCenterChange(
+                index,
+                new google.maps.LatLng(circles[index].lat, circles[index].lng)
+              );
             }}
           />
         ))}

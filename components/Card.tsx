@@ -25,11 +25,7 @@ export default function Card({ facility }: { facility: Facility }) {
     <div className="card horizontal">
       <div className="card-media">
         {displayImage ? (
-          <img
-            src={displayImage}
-            alt={facility.name}
-            loading="lazy"
-          />
+          <img src={displayImage} alt={facility.name} loading="lazy" />
         ) : (
           <div className="card-media-placeholder" aria-hidden>
             No image
@@ -52,8 +48,10 @@ export default function Card({ facility }: { facility: Facility }) {
           </div>
           {facility.insurances && facility.insurances.length > 0 && (
             <div className="insurances">
-              <strong>Insurance:</strong> {facility.insurances.slice(0, 3).join(", ")}
-              {facility.insurances.length > 3 && ` +${facility.insurances.length - 3} more`}
+              <strong>Insurance:</strong>{" "}
+              {facility.insurances.slice(0, 3).join(", ")}
+              {facility.insurances.length > 3 &&
+                ` +${facility.insurances.length - 3} more`}
             </div>
           )}
         </div>

@@ -11,8 +11,8 @@ const COOKIE_OPTIONS = {
 const isSupabaseConfigured = (() => {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const validUrl = typeof url === 'string' && /^https?:\/\//.test(url);
-  const validKey = typeof key === 'string' && key.includes('.');
+  const validUrl = typeof url === "string" && /^https?:\/\//.test(url);
+  const validKey = typeof key === "string" && key.includes(".");
   return Boolean(validUrl && validKey);
 })();
 

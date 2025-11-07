@@ -10,8 +10,8 @@ import { mockServiceAreas } from "@/lib/mockData";
 export default async function ServiceAreasPage() {
   const areas = await getFacilityServiceAreas();
   const isDev = process.env.NODE_ENV !== "production";
-  const displayAreas = areas.length > 0 ? areas : (isDev ? mockServiceAreas : []);
-  
+  const displayAreas = areas.length > 0 ? areas : isDev ? mockServiceAreas : [];
+
   // Determine a facilityId to associate saves with. Prefer first facility in the user's org.
   const user = await getCurrentUser();
   let facilityId: string | undefined = undefined;
@@ -34,7 +34,8 @@ export default async function ServiceAreasPage() {
           </h1>
           {isDev && areas.length === 0 && displayAreas.length > 0 && (
             <p className="mt-2 text-sm text-gray-600">
-              Showing demo data • Configure Supabase to manage real service areas
+              Showing demo data • Configure Supabase to manage real service
+              areas
             </p>
           )}
         </div>
@@ -63,7 +64,7 @@ export default async function ServiceAreasPage() {
               </div>
             </div>
 
-              <div className="mt-8">
+            <div className="mt-8">
               <h2 className="text-lg font-medium text-gray-900">
                 Coverage Details
               </h2>

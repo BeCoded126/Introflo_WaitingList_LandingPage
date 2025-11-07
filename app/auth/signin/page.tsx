@@ -146,8 +146,7 @@ export default function SignIn() {
 
         {/* Sign Up Link */}
         <div className="signup-link">
-          Don't have an account?{" "}
-          <a href="/auth/signup">Sign up for free</a>
+          Don't have an account? <a href="/auth/signup">Sign up for free</a>
         </div>
       </div>
 

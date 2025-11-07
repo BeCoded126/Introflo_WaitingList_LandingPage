@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import ConversationsSidebar, { Conversation } from "@/components/ConversationsSidebar";
+import ConversationsSidebar, {
+  Conversation,
+} from "@/components/ConversationsSidebar";
 import ChatView, { ChatMessage } from "@/components/ChatView";
 import FiltersPanel, { FilterOptions } from "@/components/FiltersPanel";
 import SwipeDeck from "@/components/SwipeDeck";
@@ -81,7 +83,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Med Management", "IOP"],
     ageGroups: ["Adult (26-64)", "Young Adult (18-25)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&h=800&fit=crop",
     bio: "Evidence-based care for adults and young adults with a collaborative team approach.",
     insurances: ["Florida Blue", "Aetna", "UnitedHealthcare", "Cigna"],
   },
@@ -93,7 +96,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Counseling", "Coaching"],
     ageGroups: ["Adult (26-64)", "Senior (65+)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1200&h=800&fit=crop",
     bio: "Warm, bilingual clinicians specializing in anxiety, mood, and life transitions.",
     insurances: ["Aetna", "Cigna", "Oscar Health"],
   },
@@ -105,7 +109,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["IOP", "PHP", "Detox"],
     ageGroups: ["Young Adult (18-25)", "Adult (26-64)"],
     verified: false,
-    image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=1200&h=800&fit=crop",
     bio: "Beach-adjacent programming focused on sustainable recovery and relapse prevention.",
     insurances: ["Florida Blue", "Humana", "UnitedHealthcare"],
   },
@@ -117,7 +122,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Med Management", "Counseling"],
     ageGroups: ["Children (0-12)", "Adolescent (13-17)", "Adult (26-64)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1551076805-e1869033e561?w=1200&h=800&fit=crop",
     bio: "Culturally competent care for families, adolescents, and adults.",
     insurances: ["Molina Healthcare", "Florida Blue", "Medicare", "Medicaid"],
   },
@@ -129,7 +135,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Med Management", "TMS", "Therapy"],
     ageGroups: ["Adult (26-64)", "Senior (65+)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&h=800&fit=crop",
     bio: "Measurement-based psychiatry and neuromodulation for treatment-resistant depression.",
     insurances: ["Aetna", "UnitedHealthcare", "Cigna", "Medicare"],
   },
@@ -141,7 +148,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Counseling"],
     ageGroups: ["Children (0-12)", "Adolescent (13-17)"],
     verified: false,
-    image: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=1200&h=800&fit=crop",
     bio: "Short-term, skills-based therapy for kids, teens, and caregivers.",
     insurances: ["Florida Blue", "Oscar Health", "Sunshine Health"],
   },
@@ -153,7 +161,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Detox", "PHP", "IOP"],
     ageGroups: ["Young Adult (18-25)", "Adult (26-64)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=800&fit=crop",
     bio: "Medically supervised detox with seamless step-down to PHP and IOP.",
     insurances: ["Humana", "Cigna", "Florida Blue", "WellCare"],
   },
@@ -165,7 +174,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "IOP", "Med Management"],
     ageGroups: ["Adult (26-64)", "Senior (65+)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1504813184591-01572f98c85f?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1504813184591-01572f98c85f?w=1200&h=800&fit=crop",
     bio: "Integrated mental health and primary care coordination for whole-person outcomes.",
     insurances: ["UnitedHealthcare", "Aetna", "Florida Blue", "Medicare"],
   },
@@ -177,7 +187,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Counseling", "Coaching"],
     ageGroups: ["Adolescent (13-17)", "Young Adult (18-25)"],
     verified: false,
-    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1200&h=800&fit=crop",
     bio: "Trauma-informed clinicians offering EMDR and CBT tracks.",
     insurances: ["Cigna", "Aetna", "Molina Healthcare", "Medicaid"],
   },
@@ -189,7 +200,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Med Management", "TMS"],
     ageGroups: ["Young Adult (18-25)", "Adult (26-64)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=1200&h=800&fit=crop",
     bio: "Outcome-driven, tech-enabled care with same-week psychiatric evaluations.",
     insurances: ["Florida Blue", "UnitedHealthcare", "Cigna", "Ambetter"],
   },
@@ -201,7 +213,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Counseling"],
     ageGroups: ["Adult (26-64)", "Senior (65+)"],
     verified: false,
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&h=800&fit=crop",
     bio: "Affordable counseling with evening and weekend availability.",
     insurances: ["Oscar Health", "Aetna", "Simply Healthcare"],
   },
@@ -213,7 +226,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Med Management", "Therapy", "ECT"],
     ageGroups: ["Adult (26-64)", "Senior (65+)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1571844307880-751c6d86f3f3?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1571844307880-751c6d86f3f3?w=1200&h=800&fit=crop",
     bio: "Collaborative psychiatric care with on-site therapy for continuity.",
     insurances: ["Florida Blue", "Cigna", "Medicare", "UnitedHealthcare"],
   },
@@ -225,7 +239,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Counseling"],
     ageGroups: ["Young Adult (18-25)", "Adult (26-64)"],
     verified: false,
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=800&fit=crop",
     bio: "Strengths-based outpatient therapy for adults and couples.",
     insurances: ["Aetna", "Cigna", "BlueCross BlueShield of Florida"],
   },
@@ -237,7 +252,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "TMS", "Med Management"],
     ageGroups: ["Adult (26-64)", "Senior (65+)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=1200&h=800&fit=crop",
     bio: "Specialists in mood disorders with psychiatry and TMS under one roof.",
     insurances: ["UnitedHealthcare", "Aetna", "Florida Blue", "Medicare"],
   },
@@ -249,7 +265,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Detox", "PHP", "IOP"],
     ageGroups: ["Young Adult (18-25)", "Adult (26-64)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1581594549595-35f6edc7b762?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1581594549595-35f6edc7b762?w=1200&h=800&fit=crop",
     bio: "Trauma-informed addiction treatment with family programming.",
     insurances: ["Humana", "Cigna", "UnitedHealthcare", "Sunshine Health"],
   },
@@ -261,7 +278,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Med Management", "IOP", "PHP"],
     ageGroups: ["Adult (26-64)", "Senior (65+)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&h=800&fit=crop",
     bio: "Collaborative care for adults and seniors with co-occurring conditions.",
     insurances: ["Medicare", "Florida Blue", "Aetna", "Humana"],
   },
@@ -273,7 +291,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Counseling", "Coaching"],
     ageGroups: ["Adolescent (13-17)", "Young Adult (18-25)", "Adult (26-64)"],
     verified: false,
-    image: "https://images.unsplash.com/photo-1573497491208-6b1acb260507?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1573497491208-6b1acb260507?w=1200&h=800&fit=crop",
     bio: "Solution-focused therapy with rapid-access intakes.",
     insurances: ["Oscar Health", "Aetna", "Ambetter"],
   },
@@ -285,7 +304,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Med Management", "Therapy"],
     ageGroups: ["Adult (26-64)"],
     verified: false,
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1200&h=800&fit=crop",
     bio: "Psychiatric consultations with coordinated psychotherapy.",
     insurances: ["Cigna", "UnitedHealthcare", "WellCare"],
   },
@@ -297,7 +317,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["IOP", "PHP", "Therapy", "Detox"],
     ageGroups: ["Young Adult (18-25)", "Adult (26-64)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1581093458791-9d42e1b5e2e9?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1581093458791-9d42e1b5e2e9?w=1200&h=800&fit=crop",
     bio: "Evidence-based substance use treatment with dual-diagnosis track.",
     insurances: ["Florida Blue", "Humana", "Cigna", "Medicaid"],
   },
@@ -309,7 +330,8 @@ const MOCK_FACILITIES: Facility[] = [
     services: ["Therapy", "Med Management", "TMS", "ECT"],
     ageGroups: ["Adult (26-64)", "Senior (65+)"],
     verified: true,
-    image: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=1200&h=800&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=1200&h=800&fit=crop",
     bio: "Outcome-focused psychiatry with advanced neuromodulation options.",
     insurances: ["Aetna", "Florida Blue", "UnitedHealthcare", "Medicare"],
   },
@@ -317,7 +339,9 @@ const MOCK_FACILITIES: Facility[] = [
 
 export default function AppDashboard() {
   const [view, setView] = useState<"cards" | "chat" | "conversations">("cards");
-  const [selectedConversationId, setSelectedConversationId] = useState<string | undefined>();
+  const [selectedConversationId, setSelectedConversationId] = useState<
+    string | undefined
+  >();
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<FilterOptions>({});
 
@@ -433,7 +457,10 @@ export default function AppDashboard() {
                 >
                   <div className="conversation-avatar">
                     {conversation.facilityImage ? (
-                      <img src={conversation.facilityImage} alt={conversation.facilityName} />
+                      <img
+                        src={conversation.facilityImage}
+                        alt={conversation.facilityName}
+                      />
                     ) : (
                       <div className="avatar-placeholder">
                         {conversation.facilityName.charAt(0)}
@@ -444,7 +471,9 @@ export default function AppDashboard() {
                     <div className="conversation-top">
                       <h3>{conversation.facilityName}</h3>
                       <span className="time">
-                        {new Date(conversation.lastMessageTime).toLocaleTimeString([], {
+                        {new Date(
+                          conversation.lastMessageTime
+                        ).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
                         })}
@@ -453,7 +482,9 @@ export default function AppDashboard() {
                     <div className="conversation-bottom">
                       <p>{conversation.lastMessage}</p>
                       {(conversation.unreadCount ?? 0) > 0 && (
-                        <span className="unread-badge">{conversation.unreadCount}</span>
+                        <span className="unread-badge">
+                          {conversation.unreadCount}
+                        </span>
                       )}
                     </div>
                   </div>
@@ -468,9 +499,17 @@ export default function AppDashboard() {
           <>
             {/* Filters Button */}
             <div className="dashboard-header">
-              <button className="filters-trigger-btn" onClick={() => setShowFilters(true)}>
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3 5a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm2 5a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+              <button
+                className="filters-trigger-btn"
+                onClick={() => setShowFilters(true)}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3 5a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm2 5a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
                 </svg>
                 Filters
                 {(filters.insurances?.length || 0) +
@@ -525,7 +564,9 @@ export default function AppDashboard() {
         onShowChat={handleShowChat}
         onShowCards={handleShowCards}
         onShowProfile={handleShowProfile}
-        currentView={view === "conversations" || view === "chat" ? "chat" : view}
+        currentView={
+          view === "conversations" || view === "chat" ? "chat" : view
+        }
       />
     </div>
   );

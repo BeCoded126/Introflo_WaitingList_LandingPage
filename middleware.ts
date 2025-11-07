@@ -7,8 +7,10 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next({ request: { headers: request.headers } });
   const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const seemsValidUrl = typeof SUPABASE_URL === "string" && /^https?:\/\//.test(SUPABASE_URL);
-  const seemsValidKey = typeof SUPABASE_ANON_KEY === "string" && SUPABASE_ANON_KEY.includes(".");
+  const seemsValidUrl =
+    typeof SUPABASE_URL === "string" && /^https?:\/\//.test(SUPABASE_URL);
+  const seemsValidKey =
+    typeof SUPABASE_ANON_KEY === "string" && SUPABASE_ANON_KEY.includes(".");
   const isConfigured = Boolean(seemsValidUrl && seemsValidKey);
 
   // Graceful dev fallback when Supabase env is not configured
@@ -24,11 +26,15 @@ export async function middleware(request: NextRequest) {
           { status: 503 }
         );
       }
+      // Allow access to all pages in dev mode when Supabase not configured (for demo with mock data)
       return response;
     }
     // In production, fail fast
     return NextResponse.json(
-      { error: "Server misconfiguration: Supabase environment variables missing" },
+      {
+        error:
+          "Server misconfiguration: Supabase environment variables missing",
+      },
       { status: 500 }
     );
   }
