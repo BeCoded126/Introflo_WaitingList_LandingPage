@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient } from "@supabase/ssr";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
@@ -24,7 +24,14 @@ export async function POST(req: Request) {
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get: () => null,
+        set: () => {}, // No-op since this is webhook endpoint
+        remove: () => {}, // No-op since this is webhook endpoint
+      },
+    }
   );
 
   try {

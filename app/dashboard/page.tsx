@@ -12,11 +12,12 @@ import "./dashboard.css";
 const sample: Facility[] = [
   {
     id: "f1",
-    name: "Harmony Therapy",
-    city: "Austin",
-    state: "TX",
-    services: ["Therapy", "TMS"],
+    name: "The SD Mindset, Coaching and Counseling",
+    city: "Coral Springs",
+    state: "FL",
+    services: ["Therapy", "Counseling", "Coaching", "Adolescent (5-22)"],
     verified: true,
+    image: "/images/image.png",
   },
   {
     id: "f2",

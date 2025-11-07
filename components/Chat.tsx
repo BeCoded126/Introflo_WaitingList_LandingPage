@@ -61,7 +61,7 @@ export default function Chat({ facility, currentUserId }: ChatProps) {
           table: "messages",
           filter: `senderId=eq.${currentUserId},receiverId=eq.${facility.id}`,
         },
-        (payload) => {
+        (payload: any) => {
           setMessages((current) => [...current, payload.new as Message]);
         }
       )

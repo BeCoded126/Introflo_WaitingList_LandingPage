@@ -1,109 +1,126 @@
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
-import { cache } from 'react'
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+import { cache } from "react";
 
 const COOKIE_OPTIONS = {
-  path: '/',
+  path: "/",
   httpOnly: true,
-  secure: process.env.NODE_ENV === 'production'
-}
+  secure: process.env.NODE_ENV === "production",
+};
+
+const isSupabaseConfigured = (() => {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const validUrl = typeof url === 'string' && /^https?:\/\//.test(url);
+  const validKey = typeof key === 'string' && key.includes('.');
+  return Boolean(validUrl && validKey);
+})();
 
 export const createClient = cache(() => {
-  const cookieStore: any = cookies()
+  const cookieStore: any = cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get(name: string) {
-          return cookieStore.get(name)?.value
+          return cookieStore.get(name)?.value;
         },
         set(name: string, value: string) {
-          cookieStore.set(name, value, COOKIE_OPTIONS)
+          cookieStore.set(name, value, COOKIE_OPTIONS);
         },
         remove(name: string) {
-          cookieStore.delete(name, COOKIE_OPTIONS)
-        }
-      }
+          cookieStore.delete(name, COOKIE_OPTIONS);
+        },
+      },
     }
-  )
-})
+  );
+});
 
 export async function getFacilityMatches() {
-  const supabase = createClient()
+  if (!isSupabaseConfigured) return [];
+  const supabase = createClient();
   const { data: matches } = await supabase
     .from("matches")
     .select("*")
     .order("score", { ascending: false })
-    .limit(10)
+    .limit(10);
 
-  return matches || []
+  return matches || [];
 }
 
 export async function getFacilityById(id: string) {
-  const supabase = createClient()
+  if (!isSupabaseConfigured) return null as any;
+  const supabase = createClient();
   const { data: facility } = await supabase
     .from("facilities")
     .select("*")
     .eq("id", id)
-    .single()
+    .single();
 
-  return facility
+  return facility;
 }
 
 export async function getCurrentUser() {
-  const supabase = createClient()
-  const { data: { session } } = await supabase.auth.getSession()
-  
-  if (!session?.user) return null
+  if (!isSupabaseConfigured) return null;
+  const supabase = createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session?.user) return null;
 
   const { data: user } = await supabase
     .from("users")
     .select("*")
     .eq("id", session.user.id)
-    .single()
+    .single();
 
-  return user
+  return user;
 }
 
 export async function getUserOrganization() {
-  const user = await getCurrentUser()
-  if (!user?.org_id) return null
-
-  const supabase = createClient()
+  const user = await getCurrentUser();
+  if (!user?.org_id) return null;
+  if (!isSupabaseConfigured) return null;
+  const supabase = createClient();
   const { data: org } = await supabase
     .from("orgs")
     .select("*")
     .eq("id", user.org_id)
-    .single()
+    .single();
 
-  return org
+  return org;
 }
 
 export async function getReferrals() {
-  const supabase = createClient()
+  if (!isSupabaseConfigured) return [];
+  const supabase = createClient();
   const { data: referrals } = await supabase
-    .from('referrals')
-    .select(`
+    .from("referrals")
+    .select(
+      `
       *,
       fromFacility:from_facility(id, name),
       toFacility:to_facility(id, name)
-    `)
-    .order('created_at', { ascending: false })
+    `
+    )
+    .order("created_at", { ascending: false });
 
-  return referrals || []
+  return referrals || [];
 }
 
 export async function getFacilityServiceAreas() {
-  const supabase = createClient()
-  const { data: areas } = await supabase
-    .from('service_areas')
-    .select('*')
+  if (!isSupabaseConfigured) return [];
+  const supabase = createClient();
+  const { data: areas } = await supabase.from("service_areas").select("*");
 
-  return areas?.map(area => ({
-    id: area.id,
-    lat: area.lat || 0,
-    lng: area.lng || 0,
-    radiusMiles: area.radius_miles || 10
-  })) || []
+  return (
+    areas?.map((area) => ({
+      id: area.id,
+      lat: area.lat || 0,
+      lng: area.lng || 0,
+      radiusMiles: area.radius_miles || 10,
+    })) || []
+  );
 }

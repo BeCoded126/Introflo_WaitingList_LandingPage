@@ -1,5 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from '@supabase/ssr';
+import { canViewServiceAreas, canManageServiceAreas } from '@/lib/rbac';
+
+// Single implementation: uses request cookies to initialize Supabase and performs CRUD
 export async function GET(request: NextRequest) {
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -16,6 +19,10 @@ export async function GET(request: NextRequest) {
       { status: 400 }
     );
   }
+
+  // Check if user can view this facility's service areas
+  const userOrError = await canViewServiceAreas(supabase, facilityId);
+  if (userOrError instanceof NextResponse) return userOrError;
 
   const { data, error } = await supabase
     .from("service_areas")
@@ -36,22 +43,32 @@ export async function POST(request: NextRequest) {
     { cookies: request.cookies }
   );
 
-  // Middleware should enforce auth for /api; validate headers as defensive check
-  const userId = request.headers.get("x-user-id");
-  const userRole = request.headers.get("x-user-role");
-  if (!userId)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (!userRole || !["ADMIN", "OWNER"].includes(userRole))
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-
   const body = await request.json();
   const { facilityId, areas } = body || {};
+
+  // Check if user can manage service areas
+  const userOrError = await canManageServiceAreas(supabase, facilityId);
+  if (userOrError instanceof NextResponse) return userOrError;
 
   if (!facilityId || !Array.isArray(areas)) {
     return NextResponse.json(
       { error: "facilityId and areas are required" },
       { status: 400 }
     );
+  }
+
+  // Validate each area minimally
+  for (const [idx, a] of areas.entries()) {
+    if (
+      typeof a?.lat !== "number" ||
+      typeof a?.lng !== "number" ||
+      typeof a?.radiusMiles !== "number"
+    ) {
+      return NextResponse.json(
+        { error: `areas[${idx}] must include numeric lat, lng, radiusMiles` },
+        { status: 400 }
+      );
+    }
   }
 
   const { error: delError } = await supabase
@@ -91,17 +108,22 @@ export async function PUT(request: NextRequest) {
     { cookies: request.cookies }
   );
 
-  const userId = request.headers.get("x-user-id");
-  const userRole = request.headers.get("x-user-role");
-  if (!userId)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (!userRole || !["ADMIN", "OWNER"].includes(userRole))
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-
   const body = await request.json();
   const { id, lat, lng, radiusMiles, city, state } = body || {};
   if (!id)
     return NextResponse.json({ error: "id is required" }, { status: 400 });
+
+  // Resolve facility for RBAC enforcement (org ownership)
+  const { data: areaRow, error: areaErr } = await supabase
+    .from("service_areas")
+    .select("facility_id")
+    .eq("id", id)
+    .single();
+  if (areaErr || !areaRow)
+    return NextResponse.json({ error: "Service area not found" }, { status: 404 });
+
+  const userOrError = await canManageServiceAreas(supabase, areaRow.facility_id);
+  if (userOrError instanceof NextResponse) return userOrError;
 
   const updates: any = {};
   if (lat !== undefined) updates.lat = lat;
@@ -128,13 +150,6 @@ export async function DELETE(request: NextRequest) {
     { cookies: request.cookies }
   );
 
-  const userId = request.headers.get("x-user-id");
-  const userRole = request.headers.get("x-user-role");
-  if (!userId)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (!userRole || !["ADMIN", "OWNER"].includes(userRole))
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-
   const url = new URL(request.url);
   const id = url.searchParams.get("id");
   if (!id)
@@ -143,9 +158,22 @@ export async function DELETE(request: NextRequest) {
       { status: 400 }
     );
 
+  // Resolve facility for RBAC enforcement (org ownership)
+  const { data: areaRow, error: areaErr } = await supabase
+    .from("service_areas")
+    .select("facility_id")
+    .eq("id", id)
+    .single();
+  if (areaErr || !areaRow)
+    return NextResponse.json({ error: "Service area not found" }, { status: 404 });
+
+  const userOrError = await canManageServiceAreas(supabase, areaRow.facility_id);
+  if (userOrError instanceof NextResponse) return userOrError;
+
   const { error } = await supabase.from("service_areas").delete().eq("id", id);
   if (error)
     return NextResponse.json({ error: error.message }, { status: 500 });
 
   return NextResponse.json({ success: true });
 }
+// duplicate block removed

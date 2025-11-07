@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe";
 import { getCurrentUser } from "@/lib/api";
-import { createClient } from '@/lib/api';
+import { createClient } from "@/lib/api";
 
 export async function POST(req: Request) {
   try {

@@ -13,9 +13,31 @@ export default function FacilityCard({
   onConnect,
 }: FacilityCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const logo =
+    facility.logoUrl ||
+    (facility as any).logo_url ||
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      facility.name || "Business"
+    )}&background=random`;
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
+      {/* Logo / Placeholder */}
+      <div className="w-full h-40 bg-gray-100 flex items-center justify-center overflow-hidden">
+        {/* Using a plain img to avoid Next/Image config needs */}
+        <img
+          src={logo}
+          alt={facility.name}
+          className="h-full w-full object-cover"
+          onError={(e) => {
+            const target = e.currentTarget as HTMLImageElement;
+            target.onerror = null;
+            target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+              facility.name || "Business"
+            )}&background=random`;
+          }}
+        />
+      </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold text-gray-900">{facility.name}</h3>
 

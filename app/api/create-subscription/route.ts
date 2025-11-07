@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { stripe, createSubscription } from "@/lib/stripe";
 import { getCurrentUser } from "@/lib/api";
-import { createClient } from '@/lib/api';
+import { createClient } from "@/lib/api";
 import { cookies } from "next/headers";
 
 const PRICE_IDS = {

@@ -1,0 +1,219 @@
+/* App Dashboard Layout */
+.app-dashboard {
+  display: flex;
+  height: calc(100vh - 64px);
+  background: #f9fafb;
+}
+
+/* Main Content Area */
+.dashboard-main {
+  flex: 1;
+  margin-left: 340px;
+  display: flex;
+  flex-direction: column;
+  background: #f9fafb;
+}
+
+/* Dashboard Header (Filters Button) */
+.dashboard-header {
+  padding: 20px 32px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filters-trigger-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: white;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filters-trigger-btn:hover {
+  border-color: #ff655c;
+  background: #fff5f3;
+  color: #ff655c;
+}
+
+.filters-trigger-btn svg {
+  flex-shrink: 0;
+}
+
+.filters-count {
+  background: #ff655c;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* Cards Container */
+.cards-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* Mobile Conversations View */
+.mobile-conversations-view {
+  display: none;
+}
+
+.mobile-conversations-header {
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mobile-conversations-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.mobile-conversations-list {
+  background: white;
+}
+
+.mobile-conversation-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mobile-conversation-item:active {
+  background: #f9fafb;
+}
+
+.conversation-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #f3f4f6;
+}
+
+.conversation-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ff655c, #44bc0c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.conversation-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.conversation-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+.conversation-top h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conversation-top .time {
+  font-size: 12px;
+  color: #9ca3af;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.conversation-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.conversation-bottom p {
+  font-size: 14px;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.unread-badge {
+  background: #ff655c;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .app-dashboard {
+    flex-direction: column;
+    padding-bottom: 68px; /* Space for mobile nav */
+  }
+
+  .conversations-sidebar {
+    display: none;
+  }
+
+  .mobile-conversations-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .dashboard-main {
+    margin-left: 0;
+  }
+
+  .dashboard-header {
+    padding: 16px 20px;
+  }
+
+  .filters-trigger-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .cards-container {
+    padding: 20px 16px;
+  }
+}

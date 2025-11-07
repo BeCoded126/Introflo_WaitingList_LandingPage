@@ -22,10 +22,18 @@ export interface Facility {
   name: string;
   description?: string;
   address: string;
+  // Optional logo fields; either camelCase or snake_case may be present depending on source
+  logoUrl?: string;
+  logo_url?: string;
   organizationId: string;
   status: "draft" | "published" | "archived";
   createdAt: Date;
   updatedAt: Date;
+  // Profile fields
+  images?: string[];
+  insurances?: string[];
+  services?: string[];
+  bio?: string;
 }
 
 export interface Service {

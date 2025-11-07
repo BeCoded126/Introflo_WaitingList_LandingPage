@@ -1,20 +1,28 @@
-import { Suspense } from 'react'
-import ServiceAreaMap from '@/components/ServiceAreaMap'
-import { getFacilityServiceAreas, getCurrentUser, createClient } from '@/lib/api'
+import { Suspense } from "react";
+import ServiceAreaMap from "@/components/ServiceAreaMap";
+import {
+  getFacilityServiceAreas,
+  getCurrentUser,
+  createClient,
+} from "@/lib/api";
+import { mockServiceAreas } from "@/lib/mockData";
 
 export default async function ServiceAreasPage() {
-  const areas = await getFacilityServiceAreas()
+  const areas = await getFacilityServiceAreas();
+  const isDev = process.env.NODE_ENV !== "production";
+  const displayAreas = areas.length > 0 ? areas : (isDev ? mockServiceAreas : []);
+  
   // Determine a facilityId to associate saves with. Prefer first facility in the user's org.
-  const user = await getCurrentUser()
-  let facilityId: string | undefined = undefined
+  const user = await getCurrentUser();
+  let facilityId: string | undefined = undefined;
   if (user?.org_id) {
-    const supabase = createClient()
+    const supabase = createClient();
     const { data: facilities } = await supabase
-      .from('facilities')
-      .select('id')
-      .eq('org_id', user.org_id)
-      .limit(1)
-    if (facilities && facilities.length > 0) facilityId = facilities[0].id
+      .from("facilities")
+      .select("id")
+      .eq("org_id", user.org_id)
+      .limit(1);
+    if (facilities && facilities.length > 0) facilityId = facilities[0].id;
   }
 
   return (
@@ -24,6 +32,11 @@ export default async function ServiceAreasPage() {
           <h1 className="text-3xl font-bold leading-tight text-gray-900">
             Service Areas
           </h1>
+          {isDev && areas.length === 0 && displayAreas.length > 0 && (
+            <p className="mt-2 text-sm text-gray-600">
+              Showing demo data • Configure Supabase to manage real service areas
+            </p>
+          )}
         </div>
       </header>
       <main>
@@ -38,23 +51,25 @@ export default async function ServiceAreasPage() {
                 >
                   <ServiceAreaMap
                     apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}
-                    serviceAreas={areas}
+                    serviceAreas={displayAreas}
                     facilityId={facilityId}
                     isEditable={true}
                     onAreaChange={async (areas) => {
                       // Handle area changes
-                      console.log('Areas updated:', areas)
+                      console.log("Areas updated:", areas);
                     }}
                   />
                 </Suspense>
               </div>
             </div>
 
-            <div className="mt-8">
-              <h2 className="text-lg font-medium text-gray-900">Coverage Details</h2>
+              <div className="mt-8">
+              <h2 className="text-lg font-medium text-gray-900">
+                Coverage Details
+              </h2>
               <div className="mt-4 bg-white shadow overflow-hidden sm:rounded-lg">
                 <ul className="divide-y divide-gray-200">
-                  {areas.map((area) => (
+                  {displayAreas.map((area) => (
                     <li key={area.id} className="px-4 py-4 sm:px-6">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center">
@@ -104,5 +119,5 @@ export default async function ServiceAreasPage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

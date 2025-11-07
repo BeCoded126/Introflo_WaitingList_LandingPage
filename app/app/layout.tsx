@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getSession } from "@/lib/supabase";
+import { getCurrentUser } from "@/lib/api";
 import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
@@ -7,53 +7,26 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { session } = await getSession();
+  const isSupabaseConfigured = Boolean(
+    typeof process.env.NEXT_PUBLIC_SUPABASE_URL === "string" &&
+      /^https?:\/\//.test(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
+      typeof process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY === "string" &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.includes(".")
+  );
 
-  if (!session) {
+  // When Supabase is not configured in development, allow preview without redirect
+  if (!isSupabaseConfigured && process.env.NODE_ENV !== "production") {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+    );
+  }
+
+  const user = await getCurrentUser();
+  if (!user) {
     redirect("/auth/signin");
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <h1 className="text-2xl font-bold text-indigo-600">
-                  introflo.io
-                </h1>
-              </div>
-              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                <a
-                  href="/app/dashboard"
-                  className="border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                >
-                  Dashboard
-                </a>
-                <a
-                  href="/app/matches"
-                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                >
-                  Matches
-                </a>
-                <a
-                  href="/app/referrals"
-                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                >
-                  Referrals
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <main>
-        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-        </div>
-      </main>
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
   );
 }

@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
-import NextAuth from 'next-auth'
+import NextAuth from "next-auth";
 import { createClient } from "@supabase/supabase-js";
 import { Provider } from "@supabase/supabase-js";
 
