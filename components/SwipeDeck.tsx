@@ -155,7 +155,7 @@ export default function SwipeDeck({
               title="Match"
               disabled={isAnimating}
             >
-              ✓
+              ♥
             </button>
           </div>
         </div>

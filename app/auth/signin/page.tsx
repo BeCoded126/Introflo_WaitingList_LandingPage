@@ -156,7 +156,7 @@ export default function SignIn() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--bg, #f8f9fa);
+          background: linear-gradient(135deg, #fff5f3 0%, #f0fdf4 100%);
           padding: 24px;
         }
 
@@ -182,7 +182,10 @@ export default function SignIn() {
         .signin-title {
           font-size: 28px;
           font-weight: 800;
-          color: var(--brand-1, #ff655c);
+          background: linear-gradient(135deg, #ff655c, #44bc0c);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
           margin-bottom: 8px;
         }
 
@@ -258,7 +261,7 @@ export default function SignIn() {
         .signin-button {
           width: 100%;
           padding: 14px;
-          background: var(--brand-1, #ff655c);
+          background: linear-gradient(135deg, #ff655c, #44bc0c);
           color: white;
           border: none;
           border-radius: 10px;
@@ -302,12 +305,12 @@ export default function SignIn() {
           align-items: center;
           gap: 8px;
           padding: 12px 16px;
-          background: #f9fafb;
+          background: linear-gradient(135deg, #fff5f3, #f0fdf4);
           border-radius: 10px;
           font-size: 13px;
           color: #6b7280;
           margin-top: 16px;
-          border: 1px solid #e5e7eb;
+          border: 1px solid rgba(255, 101, 92, 0.1);
         }
 
         .demo-notice svg {

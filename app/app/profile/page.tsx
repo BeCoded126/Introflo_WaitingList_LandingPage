@@ -94,24 +94,14 @@ export default function ProfilePage() {
       const newImage = URL.createObjectURL(files[0]);
       const updated = [...images, newImage];
       setImages(updated);
-      saveProfile({
-        images: updated,
-        insurances: selectedInsurances,
-        services: selectedServices,
-        bio,
-      });
+      saveProfile({ images: updated, insurances: selectedInsurances, services: selectedServices, bio });
     }
   };
 
   const removeImage = (index: number) => {
     const updated = images.filter((_, i) => i !== index);
     setImages(updated);
-    saveProfile({
-      images: updated,
-      insurances: selectedInsurances,
-      services: selectedServices,
-      bio,
-    });
+    saveProfile({ images: updated, insurances: selectedInsurances, services: selectedServices, bio });
   };
 
   const toggleInsurance = (insurance: string) => {
@@ -119,12 +109,7 @@ export default function ProfilePage() {
       ? selectedInsurances.filter((i) => i !== insurance)
       : [...selectedInsurances, insurance];
     setSelectedInsurances(updated);
-    saveProfile({
-      images,
-      insurances: updated,
-      services: selectedServices,
-      bio,
-    });
+    saveProfile({ images, insurances: updated, services: selectedServices, bio });
   };
 
   const toggleService = (service: string) => {
@@ -132,12 +117,7 @@ export default function ProfilePage() {
       ? selectedServices.filter((s) => s !== service)
       : [...selectedServices, service];
     setSelectedServices(updated);
-    saveProfile({
-      images,
-      insurances: selectedInsurances,
-      services: updated,
-      bio,
-    });
+    saveProfile({ images, insurances: selectedInsurances, services: updated, bio });
   };
 
   const handleBioChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -146,12 +126,7 @@ export default function ProfilePage() {
       setBio(value);
       // Debounce auto-save for bio (save after user stops typing)
       setTimeout(() => {
-        saveProfile({
-          images,
-          insurances: selectedInsurances,
-          services: selectedServices,
-          bio: value,
-        });
+        saveProfile({ images, insurances: selectedInsurances, services: selectedServices, bio: value });
       }, 1000);
     }
   };
@@ -164,9 +139,7 @@ export default function ProfilePage() {
     <div className="profile-container">
       <div className="profile-header">
         <h1>Edit Profile</h1>
-        <p className="subtitle">
-          Complete your profile to attract the right referrals
-        </p>
+        <p className="subtitle">Complete your profile to attract the right referrals</p>
       </div>
 
       {/* Images Section */}
@@ -175,10 +148,8 @@ export default function ProfilePage() {
           <h2>Photos</h2>
           <span className="count">{images.length}/3</span>
         </div>
-        <p className="section-description">
-          Add up to 3 photos of your facility
-        </p>
-
+        <p className="section-description">Add up to 3 photos of your facility</p>
+        
         <div className="image-grid">
           {images.map((img, index) => (
             <div key={index} className="image-slot filled">
@@ -216,14 +187,12 @@ export default function ProfilePage() {
           <span className="count">{selectedInsurances.length}</span>
         </div>
         <p className="section-description">Select all insurances you accept</p>
-
+        
         <div className="options-grid">
           {FL_INSURANCES.map((insurance) => (
             <button
               key={insurance}
-              className={`option-pill ${
-                selectedInsurances.includes(insurance) ? "selected" : ""
-              }`}
+              className={`option-pill ${selectedInsurances.includes(insurance) ? "selected" : ""}`}
               onClick={() => toggleInsurance(insurance)}
             >
               {insurance}
@@ -239,14 +208,12 @@ export default function ProfilePage() {
           <span className="count">{selectedServices.length}</span>
         </div>
         <p className="section-description">Select all services you offer</p>
-
+        
         <div className="options-grid">
           {SERVICES.map((service) => (
             <button
               key={service}
-              className={`option-pill ${
-                selectedServices.includes(service) ? "selected" : ""
-              }`}
+              className={`option-pill ${selectedServices.includes(service) ? "selected" : ""}`}
               onClick={() => toggleService(service)}
             >
               {service}
@@ -262,7 +229,7 @@ export default function ProfilePage() {
           <span className="count">{bio.length}/300</span>
         </div>
         <p className="section-description">Write a brief description</p>
-
+        
         <textarea
           className="bio-input"
           placeholder="Tell potential referral partners about your facility, approach, and specialties..."

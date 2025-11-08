@@ -24,7 +24,7 @@ describe("UI Smoke Tests", () => {
     };
 
     render(<Card facility={mockFacility} />);
-
+    
     expect(screen.getByText("Test Facility")).toBeInTheDocument();
     expect(screen.getByText("Austin, TX")).toBeInTheDocument();
     expect(screen.getByText(/Therapy • Counseling/)).toBeInTheDocument();

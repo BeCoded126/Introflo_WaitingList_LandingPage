@@ -94,11 +94,7 @@ export default function ChatView({
             <span className="online-status">Active now</span>
           </div>
         </div>
-        <button
-          className="close-chat-btn"
-          onClick={onClose}
-          aria-label="Close chat"
-        >
+        <button className="close-chat-btn" onClick={onClose} aria-label="Close chat">
           ✕
         </button>
       </div>

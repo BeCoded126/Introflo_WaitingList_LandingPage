@@ -1,7 +1,7 @@
 :root {
   --brand-1: #ff655c; /* coral */
-  --brand-2: #44bc0c; /* teal */
-  --brand-3: #144212; /* dark navy */
+  --brand-2: #44BC0C8; /* teal - note brand uses gradient; keep token */
+  --brand-3: #144212B; /* dark navy */
   --bg: #f5f4f6;
 }
 

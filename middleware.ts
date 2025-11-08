@@ -84,27 +84,21 @@ export async function middleware(request: NextRequest) {
 
   // Protect all routes under /app (UI pages)
   if (request.nextUrl.pathname.startsWith("/app")) {
-    // In development we allow previewing UI without auth if explicitly opted-in via DEV_PREVIEW (or when Supabase not configured above)
-    const devPreview =
-      process.env.NODE_ENV !== "production" &&
-      process.env.DEV_PREVIEW === "true";
-    if (!session?.user && !devPreview) {
+    if (!session?.user) {
       return NextResponse.redirect(new URL("/auth/signin", request.url));
     }
 
-    if (session?.user) {
-      const { data: user } = await supabase
-        .from("users")
-        .select("role")
-        .eq("id", session.user.id)
-        .single();
+    const { data: user } = await supabase
+      .from("users")
+      .select("role")
+      .eq("id", session.user.id)
+      .single();
 
-      if (!user) {
-        return NextResponse.redirect(new URL("/auth/signin", request.url));
-      }
-
-      response.headers.set("x-user-role", user.role);
+    if (!user) {
+      return NextResponse.redirect(new URL("/auth/signin", request.url));
     }
+
+    response.headers.set("x-user-role", user.role);
   }
 
   return response;
