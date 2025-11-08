@@ -31,6 +31,8 @@ npx prisma migrate dev --name init
 npm run dev
 ```
 
+5. **Dev Preview Mode (optional):** To preview `/app/*` UI pages without Supabase authentication in development, set `DEV_PREVIEW=true` in your `.env.local`. This is for UI-only preview and should **never** be enabled in production.
+
 What's included
 
 - `prisma/schema.prisma` — initial DB schema for orgs, users, facilities, services, matches, referrals, interactions, leads, subscriptions, audit logs.

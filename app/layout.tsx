@@ -1,7 +1,7 @@
 import "./globals.css";
 import "../styles/components.css";
 import React from "react";
-import Navigation from "../components/Navigation";
+import Navigation from "@/components/Navigation";
 
 export const metadata = {
   title: "introflo.io",
@@ -16,8 +16,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Navigation />
         <div className="app-container">
-          <Navigation />
           <main className="main-content">{children}</main>
         </div>
       </body>

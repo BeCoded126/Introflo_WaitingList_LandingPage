@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Swipe Deck Mockup - introflo.io</title>
-  <style>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swipe Deck Mockup - introflo.io</title>
+    <style>
     * {
       margin: 0;
       padding: 0;
@@ -332,100 +332,105 @@
       cursor: pointer;
     }
   </style>
-</head>
-<body>
-  <!-- Navigation -->
-  <nav class="nav">
-    <div class="nav-brand">
-      <div class="nav-logo">if</div>
-      <div class="nav-wordmark">introflo.io</div>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="nav-brand">
+        <div class="nav-logo">if</div>
+        <div class="nav-wordmark">introflo.io</div>
+      </div>
+      <div class="nav-links">
+        <a href="#" class="nav-link active">Discover</a>
+        <a href="#" class="nav-link">Matches</a>
+        <a href="#" class="nav-link">Profile</a>
+        <a href="#" class="nav-link">Sign In</a>
+      </div>
+    </nav>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+      <!-- Filter Panel -->
+      <aside class="filter-panel">
+        <h3>Filters</h3>
+
+        <div class="filter-section">
+          <label>Location</label>
+          <input type="text" class="filter-input" placeholder="City or ZIP">
+        </div>
+
+        <div class="filter-section">
+          <label>Distance</label>
+          <input type="text" class="filter-input" placeholder="Within 25 miles">
+        </div>
+
+        <div class="filter-section">
+          <label>Services</label>
+          <div class="service-tags">
+            <div class="tag active">Therapy</div>
+            <div class="tag">IOP</div>
+            <div class="tag">PHP</div>
+            <div class="tag">Detox</div>
+            <div class="tag">TMS</div>
+            <div class="tag">ECT</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Swipe Deck -->
+      <main class="deck-container">
+        <div class="card">
+          <div class="card-image">
+            [Therapy Room Photo]
+          </div>
+          <div class="card-content">
+            <div class="card-header">
+              <div class="card-title">The SD Mindset</div>
+              <div class="badge">Verified</div>
+            </div>
+            <div class="card-meta">Coral Springs, FL</div>
+            <div class="card-bio">
+              We specialize in evidence-based therapy for adolescents and young
+              adults. Our compassionate team provides a safe space for growth
+              and healing.
+            </div>
+            <div class="card-services">
+              Therapy • IOP • Counseling • Coaching
+            </div>
+            <div class="card-insurance">
+              <strong>Insurance:</strong> Aetna, Florida Blue, UnitedHealthcare
+              +3 more
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-skip">✕</button>
+          <button class="btn btn-match">♥</button>
+        </div>
+      </main>
+
+      <!-- Chat Panel -->
+      <aside class="chat-panel">
+        <div class="chat-header">Recent Matches</div>
+        <div class="chat-body">
+          <div class="chat-message them">
+            Hey! Thanks for connecting. We'd love to discuss potential
+            referrals.
+          </div>
+          <div class="chat-message me">
+            Absolutely! What populations do you primarily serve?
+          </div>
+          <div class="chat-message them">
+            We focus on adolescents 12-18 with anxiety and depression. Do you
+            have experience with that age group?
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" placeholder="Type a message...">
+          <button>Send</button>
+        </div>
+      </aside>
     </div>
-    <div class="nav-links">
-      <a href="#" class="nav-link active">Discover</a>
-      <a href="#" class="nav-link">Matches</a>
-      <a href="#" class="nav-link">Profile</a>
-      <a href="#" class="nav-link">Sign In</a>
-    </div>
-  </nav>
-
-  <!-- Dashboard -->
-  <div class="dashboard">
-    <!-- Filter Panel -->
-    <aside class="filter-panel">
-      <h3>Filters</h3>
-      
-      <div class="filter-section">
-        <label>Location</label>
-        <input type="text" class="filter-input" placeholder="City or ZIP">
-      </div>
-      
-      <div class="filter-section">
-        <label>Distance</label>
-        <input type="text" class="filter-input" placeholder="Within 25 miles">
-      </div>
-      
-      <div class="filter-section">
-        <label>Services</label>
-        <div class="service-tags">
-          <div class="tag active">Therapy</div>
-          <div class="tag">IOP</div>
-          <div class="tag">PHP</div>
-          <div class="tag">Detox</div>
-          <div class="tag">TMS</div>
-          <div class="tag">ECT</div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Swipe Deck -->
-    <main class="deck-container">
-      <div class="card">
-        <div class="card-image">
-          [Therapy Room Photo]
-        </div>
-        <div class="card-content">
-          <div class="card-header">
-            <div class="card-title">The SD Mindset</div>
-            <div class="badge">Verified</div>
-          </div>
-          <div class="card-meta">Coral Springs, FL</div>
-          <div class="card-bio">
-            We specialize in evidence-based therapy for adolescents and young adults. Our compassionate team provides a safe space for growth and healing.
-          </div>
-          <div class="card-services">
-            Therapy • IOP • Counseling • Coaching
-          </div>
-          <div class="card-insurance">
-            <strong>Insurance:</strong> Aetna, Florida Blue, UnitedHealthcare +3 more
-          </div>
-        </div>
-      </div>
-      
-      <div class="controls">
-        <button class="btn btn-skip">✕</button>
-        <button class="btn btn-match">♥</button>
-      </div>
-    </main>
-
-    <!-- Chat Panel -->
-    <aside class="chat-panel">
-      <div class="chat-header">Recent Matches</div>
-      <div class="chat-body">
-        <div class="chat-message them">
-          Hey! Thanks for connecting. We'd love to discuss potential referrals.
-        </div>
-        <div class="chat-message me">
-          Absolutely! What populations do you primarily serve?
-        </div>
-        <div class="chat-message them">
-          We focus on adolescents 12-18 with anxiety and depression. Do you have experience with that age group?
-        </div>
-      </div>
-      <div class="chat-input">
-        <input type="text" placeholder="Type a message...">
-        <button>Send</button>
-      </div>
-    </aside>
-  </div>
-</body>
+  </body>
 </html>

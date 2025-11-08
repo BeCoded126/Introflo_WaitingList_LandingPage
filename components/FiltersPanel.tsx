@@ -53,7 +53,11 @@ const SERVICES = [
   "Coaching",
 ];
 
-export default function FiltersPanel({ filters, onFiltersChange, onClose }: FiltersPanelProps) {
+export default function FiltersPanel({
+  filters,
+  onFiltersChange,
+  onClose,
+}: FiltersPanelProps) {
   const [localFilters, setLocalFilters] = useState<FilterOptions>(filters);
 
   const handleLocationChange = (location: string) => {
@@ -61,7 +65,10 @@ export default function FiltersPanel({ filters, onFiltersChange, onClose }: Filt
   };
 
   const handleDistanceChange = (distance: string) => {
-    setLocalFilters({ ...localFilters, distance: parseInt(distance) || undefined });
+    setLocalFilters({
+      ...localFilters,
+      distance: parseInt(distance) || undefined,
+    });
   };
 
   const toggleInsurance = (insurance: string) => {

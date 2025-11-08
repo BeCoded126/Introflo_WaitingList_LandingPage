@@ -1,8 +1,8 @@
 :root {
   /* Brand Colors */
-  --brand-1: #ff655c; /* coral */
-  --brand-2: #44bc0c; /* teal */
-  --brand-3: #144212; /* dark navy */
+  --brand-1: #ff655c; /* coral (primary) */
+  --brand-2: #44bc0c; /* teal (secondary) */
+  --brand-3: #144212; /* dark navy (neutral) */
   --bg: #f5f4f6;
 }
 
@@ -55,14 +55,17 @@ a {
 .main-nav {
   background: white;
   border-bottom: 2px solid #ff655c;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 .nav-content {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 24px;
-  height: 64px;
+  padding: 0 28px;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,36 +81,34 @@ a {
 .brand-link {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   text-decoration: none;
 }
 
 .brand-logo-nav {
-  width: 28px;
-  height: 28px;
+  width: 44px;
+  height: 44px;
 }
 
 .brand-wordmark-nav {
-  font-size: 20px;
-  font-weight: 700;
-  background: linear-gradient(to right, #ff655c, #44bc0c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--brand-3);
+  letter-spacing: 0.2px;
   margin: 0;
 }
 
 .nav-links-right {
   position: absolute;
-  right: 24px;
+  right: 28px;
   display: flex;
-  gap: 24px;
+  gap: 28px;
 }
 
 .nav-link {
   color: #6b7280;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 15px;
   text-decoration: none;
   transition: color 0.2s;
 }

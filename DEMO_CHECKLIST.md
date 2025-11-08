@@ -3,11 +3,13 @@
 ## ✅ Pre-Demo Verification Complete
 
 ### Code Quality
+
 - ✅ TypeScript compilation passes (npx tsc --noEmit)
 - ✅ All tests passing (7/7 tests: 3 API + 4 UI)
 - ✅ Dev server runs on port 3001
 
 ### UI Features Ready
+
 - ✅ Dashboard with centered swipeable cards
 - ✅ Facility card displays:
   - Image (180px height, lazy loading)
@@ -25,6 +27,7 @@
 - ✅ Responsive layout (3-column grid)
 
 ### Navigation
+
 - ✅ Logo with coral-to-teal gradient
 - ✅ Brand name with matching gradient
 - ✅ Links: Dashboard, Matches, Referrals, Service Areas
@@ -32,6 +35,7 @@
 - ✅ Teal hover states on nav links
 
 ### Technical Health
+
 - ✅ Mock data system for dev preview
 - ✅ Environment guards for missing Supabase config
 - ✅ RBAC helpers implemented
@@ -41,12 +45,15 @@
 ## 🎯 Demo Flow
 
 1. **Start Server**
+
    ```bash
    npm run dev
    ```
+
    Visit: http://localhost:3001/dashboard
 
 2. **Show Core Features**
+
    - Point out centered card with image
    - Highlight brand colors in nav and buttons
    - Demo "Nope" and "Match" button interactions
@@ -60,12 +67,14 @@
    - Show test coverage (npm run test)
 
 ## 📝 Known Limitations
+
 - Fast Refresh warnings in dev (Next.js internal, doesn't affect functionality)
 - Supabase not configured (using mock data intentionally for demo)
 - Chat is placeholder (not yet functional)
 - Filter interactions log to console (not yet wired to API)
 
 ## 🚀 Next Steps After Demo
+
 - Wire filter panel to real API queries
 - Implement live chat WebSocket connection
 - Add animation to swipe interactions
