@@ -1,26 +1,14 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import LogoMark from "@/components/LogoMark";
-import QRCode from "qrcode";
+import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+// Dynamically import sticky waitlist bar (client-only, no SSR) to prevent hydration drift
+const StickyWaitlist = dynamic(() => import("@/components/StickyWaitlist"), { ssr: false });
 
 export default function Waitlist() {
-  const waitlistRef = useRef<HTMLDivElement>(null);
-  const [isFloating, setIsFloating] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!waitlistRef.current) return;
-      const rect = waitlistRef.current.getBoundingClientRect();
-      setIsFloating(rect.top <= 0);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Hydration stabilization: track mounted state so we can delay animations
+  const [mounted, setMounted] = useState(false);
   const [activePhone, setActivePhone] = useState(0);
-  const [qrCode, setQrCode] = useState("");
-  const [qrTarget, setQrTarget] = useState("");
   const [chatStep, setChatStep] = useState(1); // how many chat messages to show
 
   // Define a simple scripted chat sequence for animation
@@ -31,15 +19,19 @@ export default function Waitlist() {
     { id: 4, text: "We can take new patients starting Thursday.", time: "2:32 PM", outgoing: true },
   ];
 
+  // Begin phone swap animation only after mount (prevents early client/server divergence)
   useEffect(() => {
+    if (!mounted) return;
     const interval = setInterval(() => {
       setActivePhone((prev) => (prev === 0 ? 1 : 0));
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [mounted]);
 
   // Chat animation interval: reveal one more message every 2.5s and loop
+  // Chat message reveal sequence - start only after mount for deterministic initial HTML
   useEffect(() => {
+    if (!mounted) return;
     const chatInterval = setInterval(() => {
       setChatStep((prev) => {
         const next = prev + 1;
@@ -47,42 +39,27 @@ export default function Waitlist() {
       });
     }, 2500);
     return () => clearInterval(chatInterval);
-  }, [chatMessages.length]);
+  }, [mounted, chatMessages.length]);
 
-  useEffect(() => {
-    // Generate QR code for mobile access
-    const generateQR = async () => {
-      try {
-        // Prefer a configured public URL when on localhost for mobile scanning
-        const configured = process.env.NEXT_PUBLIC_PUBLIC_URL;
-        const url = typeof window !== 'undefined'
-          ? (window.location.hostname === 'localhost' && configured)
-            ? configured
-            : window.location.origin
-          : configured || 'http://localhost:3000';
-        setQrTarget(url);
-        const qr = await QRCode.toDataURL(url, { width: 180, margin: 1 });
-        setQrCode(qr);
-      } catch (err) {
-        console.error('QR generation failed:', err);
-      }
-    };
-    generateQR();
-  }, []);
+  // Mark component as mounted (runs after hydration)
+  useEffect(() => { setMounted(true); }, []);
+
+  // Note: No QR rendering on this page; QR generation removed to avoid unnecessary client work
 
   return (
-    <div
+    <div suppressHydrationWarning
       style={{
-        background: "linear-gradient(135deg, #fff5f3 0%, #ffe4e1 100%)",
+        background: "#F8F9FA", // Cloud White
         minHeight: "100vh",
+        color: "#3A3A3D", // Graphite Text default
       }}
     >
       {/* Navigation */}
       <nav
         style={{
-          background: "rgba(255, 255, 255, 0.95)",
+          background: "rgba(248, 249, 250, 0.95)", // Cloud White translucent
           backdropFilter: "blur(10px)",
-          borderBottom: "1px solid rgba(255, 127, 101, 0.1)",
+          borderBottom: "1px solid #C9CCD1", // Stone Neutral
           position: "sticky",
           top: 0,
           zIndex: 100,
@@ -102,10 +79,9 @@ export default function Waitlist() {
           <span
             style={{
               fontSize: "28px",
-              fontWeight: 700,
-              background: "linear-gradient(135deg, #ff7f65, #ffa590)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              fontWeight: 800,
+              color: "#2B2D31", // Deep Slate for brand wordmark
+              letterSpacing: "0.2px",
             }}
           >
             introflo.io
@@ -136,87 +112,62 @@ export default function Waitlist() {
                 fontWeight: 800,
                 lineHeight: 1.1,
                 marginBottom: "24px",
-                background: "linear-gradient(135deg, #ff7f65, #ffa590)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                color: "#2B2D31", // Deep Slate for headings
                 maxWidth: "780px",
               }}
             >
               We Empower Care Teams to Connect Faster and Smarter.
             </h1>
+            {/* Intro copy (two lines) */}
             <p
               style={{
-                fontSize: "20px",
-                color: "#6b7280",
+                fontSize: "18px",
+                color: "#374151",
                 lineHeight: 1.7,
-                marginBottom: "40px",
+                marginBottom: "8px",
               }}
             >
-              Connect with verified facilities, match instantly, chat securely, and manage referrals—all in one streamlined workspace.
+              Connect with the right behavioral practices through intelligent matching.
             </p>
-            {/* Waitlist input field */}
-            <div
-              ref={waitlistRef}
-              id="waitlist-sticky"
+            <p
               style={{
-                display: "flex",
-                gap: "12px",
-                alignItems: "center",
-                marginTop: "16px",
-                position: isFloating ? "fixed" : "static",
-                top: isFloating ? 0 : undefined,
-                left: isFloating ? 0 : undefined,
-                width: isFloating ? "100vw" : undefined,
-                zIndex: 200,
-                background: "rgba(255,255,255,0.97)",
-                padding: "12px 16px",
-                borderRadius: isFloating ? 0 : "14px",
-                boxShadow: isFloating ? "0 2px 16px rgba(255,127,101,0.12)" : "0 2px 8px rgba(255,127,101,0.08)",
-                border: "1.5px solid #ffe4e1",
-                borderBottom: isFloating ? "1.5px solid #ffe4e1" : undefined,
-                transition: "all 0.2s"
+                fontSize: "18px",
+                color: "#374151",
+                lineHeight: 1.7,
+                marginBottom: "14px",
               }}
             >
-                <input
-                  type="email"
-                  placeholder="Join waitlist"
-                  style={{
-                    flex: 1,
-                    padding: "14px 18px",
-                    fontSize: "16px",
-                    borderRadius: "10px",
-                    border: "1.5px solid #ff7f65",
-                    outline: "none",
-                    background: "transparent",
-                    color: "#111827",
-                    fontWeight: 500,
-                    boxShadow: "0 2px 8px rgba(255,127,101,0.04)",
-                    transition: "border 0.2s"
-                  }}
-                />
-              <button
-                style={{
-                  padding: "14px 28px",
-                  fontSize: "16px",
-                  borderRadius: "10px",
-                  fontWeight: 700,
-                  background: "linear-gradient(135deg, #ff7f65, #ffa590)",
-                  color: "white",
-                  border: "none",
-                  cursor: "pointer",
-                  boxShadow: "0 4px 14px rgba(255, 127, 101, 0.18)",
-                  transition: "all 0.2s"
-                }}
-                onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
-                onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
-              >
-                Join
-              </button>
-            </div>
+              Swipe, match, and build your network effortlessly.
+            </p>
+
+            {/* Problem → Outcome bullets */}
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, marginBottom: "16px" }}>
+              <li style={{ display: "flex", alignItems: "flex-start", gap: "12px", marginBottom: "10px" }}>
+                <div style={{ width: "12px", height: "12px", background: "#8893AD", borderRadius: "3px", marginTop: "6px", flex: "0 0 12px" }} />
+                <div style={{ fontSize: "16px", color: "#3A3A3D", lineHeight: 1.6 }}>
+                  Too many calls, too few reliable contacts <span style={{ color: "#6b7280" }}>→</span> <strong>Curate your own verified network</strong>
+                </div>
+              </li>
+              <li style={{ display: "flex", alignItems: "flex-start", gap: "12px", marginBottom: "10px" }}>
+                <div style={{ width: "12px", height: "12px", background: "#8893AD", borderRadius: "3px", marginTop: "6px", flex: "0 0 12px" }} />
+                <div style={{ fontSize: "16px", color: "#3A3A3D", lineHeight: 1.6 }}>
+                  Endless follow-ups and guessing games <span style={{ color: "#6b7280" }}>→</span> <strong>Collaborate confidently with vetted partners</strong>
+                </div>
+              </li>
+              <li style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
+                <div style={{ width: "12px", height: "12px", background: "#8893AD", borderRadius: "3px", marginTop: "6px", flex: "0 0 12px" }} />
+                <div style={{ fontSize: "16px", color: "#3A3A3D", lineHeight: 1.6 }}>
+                  Disconnected care transitions <span style={{ color: "#6b7280" }}>→</span> <strong>Strengthen every step of your patient's continuum</strong>
+                </div>
+              </li>
+            </ul>
+            {/* Waitlist input field (dynamically loaded client-only component) */}
+            {mounted && <StickyWaitlist />}
           </div>
 
-          {/* Two iPhone Devices Side by Side */}
-          <div
+          {/* Two iPhone Devices Side by Side (client-only to avoid hydration drift) */}
+          {mounted && (
+            <div
             style={{
               display: "flex",
               gap: "30px",
@@ -229,12 +180,12 @@ export default function Waitlist() {
               style={{
                 width: "280px",
                 height: "580px",
-                background: "#1f2937",
+                background: "#E5E7EB", // Cool Mist Gray device frame
                 borderRadius: "40px",
                 padding: "12px",
                 boxShadow: activePhone === 0 
-                  ? "0 30px 60px rgba(139, 92, 246, 0.4)" 
-                  : "0 20px 40px rgba(0,0,0,0.2)",
+                  ? "0 30px 60px rgba(0,0,0,0.12)" 
+                  : "0 20px 40px rgba(0,0,0,0.12)",
                 transform: activePhone === 0 ? "scale(1.05)" : "scale(1)",
                 transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
@@ -243,7 +194,7 @@ export default function Waitlist() {
                 style={{
                   width: "100%",
                   height: "100%",
-                  background: "linear-gradient(135deg, #faf5ff 0%, #f5f3ff 100%)",
+                  background: "#FFFFFF",
                   borderRadius: "32px",
                   overflow: "hidden",
                   position: "relative",
@@ -257,7 +208,7 @@ export default function Waitlist() {
                     justifyContent: "space-between",
                     fontSize: "11px",
                     fontWeight: 600,
-                    color: "#111827",
+                    color: "#3A3A3D",
                   }}
                 >
                   <span>9:41</span>
@@ -272,7 +223,7 @@ export default function Waitlist() {
                       height: "32px",
                       margin: "0 auto 8px",
                       borderRadius: "8px",
-                      background: "linear-gradient(135deg, #ff7f65, #ffa590)",
+                      background: "#8893AD",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -286,9 +237,7 @@ export default function Waitlist() {
                       fontSize: "13px",
                       fontWeight: 700,
                       marginTop: "8px",
-                      background: "linear-gradient(135deg, #ff7f65, #ffa590)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
+                      color: "#2B2D31",
                     }}
                   >
                     introflo.io
@@ -299,21 +248,20 @@ export default function Waitlist() {
                 <div style={{ padding: "0 20px" }}>
                   <div
                     style={{
-                      background: "white",
+                      background: "#FFFFFF",
                       borderRadius: "20px",
                       overflow: "hidden",
-                      boxShadow: "0 8px 24px rgba(255, 127, 101, 0.15)",
+                      boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
                     }}
                   >
                     <div
                       style={{
                         height: "220px",
-                        background:
-                          "linear-gradient(135deg, #ff7f65 0%, #ffa590 100%)",
+                        background: "#E5E7EB",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        color: "white",
+                        color: "#2B2D31",
                         fontSize: "48px",
                       }}
                     >
@@ -358,12 +306,12 @@ export default function Waitlist() {
                         width: "50px",
                         height: "50px",
                         borderRadius: "50%",
-                        background: "white",
+                        background: "#FFFFFF",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         fontSize: "24px",
-                        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                       }}
                     >
                       ✕
@@ -373,13 +321,13 @@ export default function Waitlist() {
                         width: "50px",
                         height: "50px",
                         borderRadius: "50%",
-                        background: "linear-gradient(135deg, #ff7f65, #ffa590)",
+                        background: "#8893AD",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                         fontSize: "24px",
-                        color: "white",
-                        boxShadow: "0 4px 12px rgba(255, 127, 101, 0.3)",
+                        color: "#FFFFFF",
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                       }}
                     >
                       ♥
@@ -394,12 +342,12 @@ export default function Waitlist() {
               style={{
                 width: "280px",
                 height: "580px",
-                background: "#1f2937",
+                background: "#E5E7EB", // Cool Mist Gray
                 borderRadius: "40px",
                 padding: "12px",
                 boxShadow: activePhone === 1
-                  ? "0 30px 60px rgba(255, 127, 101, 0.4)"
-                  : "0 20px 40px rgba(0,0,0,0.2)",
+                  ? "0 30px 60px rgba(0,0,0,0.12)"
+                  : "0 20px 40px rgba(0,0,0,0.12)",
                 transform: activePhone === 1 ? "scale(1.05)" : "scale(1)",
                 transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
@@ -408,7 +356,7 @@ export default function Waitlist() {
                 style={{
                   width: "100%",
                   height: "100%",
-                  background: "white",
+                  background: "#FFFFFF",
                   borderRadius: "32px",
                   overflow: "hidden",
                   display: "flex",
@@ -423,7 +371,7 @@ export default function Waitlist() {
                     justifyContent: "space-between",
                     fontSize: "11px",
                     fontWeight: 600,
-                    color: "#111827",
+                    color: "#3A3A3D",
                   }}
                 >
                   <span>9:41</span>
@@ -434,7 +382,7 @@ export default function Waitlist() {
                 <div
                   style={{
                     padding: "12px 20px",
-                    background: "linear-gradient(135deg, #ff7f65, #ffa590)",
+                    background: "#8893AD",
                     display: "flex",
                     alignItems: "center",
                     gap: "12px",
@@ -455,7 +403,7 @@ export default function Waitlist() {
                     🏥
                   </div>
                   <div>
-                    <div style={{ fontSize: "14px", fontWeight: 700, color: "white" }}>
+                    <div style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF" }}>
                       The SD Mindset
                     </div>
                     <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.9)" }}>
@@ -469,13 +417,13 @@ export default function Waitlist() {
                   style={{
                     flex: 1,
                     padding: "16px",
-                    background: "#f9fafb",
+                    background: "#F8F9FA",
                     overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
                   }}
                 >
-                  {chatMessages.slice(0, chatStep).map((m) => (
+                  {(mounted ? chatMessages.slice(0, chatStep) : chatMessages.slice(0, 1)).map((m) => (
                     <div
                       key={m.id}
                       style={{
@@ -490,10 +438,8 @@ export default function Waitlist() {
                         <div
                           style={{
                             maxWidth: "80%",
-                            background: m.outgoing
-                              ? "linear-gradient(135deg, #ff7f65, #ffa590)"
-                              : "white",
-                            color: m.outgoing ? "white" : "#111827",
+                            background: m.outgoing ? "#8893AD" : "#FFFFFF",
+                            color: m.outgoing ? "#FFFFFF" : "#3A3A3D",
                             padding: "10px 14px",
                             borderRadius: m.outgoing
                               ? "16px 16px 4px 16px"
@@ -501,7 +447,7 @@ export default function Waitlist() {
                             fontSize: "12px",
                             lineHeight: 1.5,
                             boxShadow: m.outgoing
-                              ? "0 4px 12px rgba(255,127,101,0.25)"
+                              ? "0 4px 12px rgba(0,0,0,0.10)"
                               : "0 2px 8px rgba(0,0,0,0.05)",
                             transition: "transform 0.3s",
                           }}
@@ -511,7 +457,7 @@ export default function Waitlist() {
                         <div
                           style={{
                             fontSize: "10px",
-                            color: "#9ca3af",
+                            color: "#A0A4AB",
                             marginTop: "4px",
                             textAlign: m.outgoing ? "right" : "left",
                           }}
@@ -529,17 +475,17 @@ export default function Waitlist() {
                 <div
                   style={{
                     padding: "12px 16px",
-                    borderTop: "1px solid #e5e7eb",
-                    background: "white",
+                    borderTop: "1px solid #C9CCD1",
+                    background: "#FFFFFF",
                   }}
                 >
                   <div
                     style={{
-                      background: "#f3f4f6",
+                      background: "#E5E7EB",
                       borderRadius: "20px",
                       padding: "10px 16px",
                       fontSize: "12px",
-                      color: "#9ca3af",
+                      color: "#8893AD",
                     }}
                   >
                     Type a message...
@@ -548,11 +494,12 @@ export default function Waitlist() {
               </div>
             </div>
           </div>
+          )}
         </div>
       </section>
 
       {/* Features */}
-      <section style={{ padding: "100px 24px", background: "white" }}>
+      <section style={{ padding: "100px 24px", background: "#FFFFFF" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "60px" }}>
             <h2
@@ -560,11 +507,12 @@ export default function Waitlist() {
                 fontSize: "42px",
                 fontWeight: 800,
                 marginBottom: "16px",
+                color: "#2B2D31",
               }}
             >
               Why Choose introflo.io?
             </h2>
-            <p style={{ fontSize: "18px", color: "#6b7280" }}>
+            <p style={{ fontSize: "18px", color: "#3A3A3D" }}>
               Everything you need to build a strong referral network
             </p>
           </div>
@@ -592,8 +540,8 @@ export default function Waitlist() {
                 desc: "All facilities verified and credentialed",
               },
             ].map((feature, i) => (
-              <div key={i} style={{ textAlign: "center", padding: "32px" }}>
-                <div style={{ fontSize: "48px", marginBottom: "16px" }}>
+              <div key={i} style={{ textAlign: "center", padding: "32px", background: "#F8F9FA", border: "1px solid #C9CCD1", borderRadius: "14px" }}>
+                <div style={{ fontSize: "48px", marginBottom: "16px", color: "#8893AD" }}>
                   {feature.icon}
                 </div>
                 <h3
@@ -601,6 +549,7 @@ export default function Waitlist() {
                     fontSize: "20px",
                     fontWeight: 700,
                     marginBottom: "12px",
+                    color: "#2B2D31",
                   }}
                 >
                   {feature.title}
@@ -608,7 +557,7 @@ export default function Waitlist() {
                 <p
                   style={{
                     fontSize: "15px",
-                    color: "#6b7280",
+                    color: "#3A3A3D",
                     lineHeight: 1.6,
                   }}
                 >
@@ -623,9 +572,9 @@ export default function Waitlist() {
       {/* Footer with QR Code */}
       <footer
         style={{
-          background: "#fff5f3",
+          background: "#F8F9FA", // Cloud White
           padding: "80px 40px 40px",
-          borderTop: "1px solid rgba(255, 127, 101, 0.1)",
+          borderTop: "1px solid #C9CCD1", // Stone Neutral
         }}
       >
         <div
@@ -642,11 +591,9 @@ export default function Waitlist() {
             <h3
               style={{
                 fontSize: "28px",
-                fontWeight: 700,
+                fontWeight: 800,
                 marginBottom: "18px",
-                background: "linear-gradient(135deg, #ff7f65, #ffa590)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                color: "#2B2D31",
               }}
             >
               Be One of the First to Gain Access
@@ -669,12 +616,12 @@ export default function Waitlist() {
                   padding: "14px 18px",
                   fontSize: "16px",
                   borderRadius: "10px",
-                  border: "1.5px solid #ff7f65",
+                  border: "1px solid #C9CCD1",
                   outline: "none",
-                  background: "transparent",
-                  color: "#111827",
+                  background: "#FFFFFF",
+                  color: "#3A3A3D",
                   fontWeight: 500,
-                  boxShadow: "0 2px 8px rgba(255,127,101,0.04)",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
                   transition: "border 0.2s"
                 }}
               />
@@ -684,15 +631,16 @@ export default function Waitlist() {
                   fontSize: "16px",
                   borderRadius: "10px",
                   fontWeight: 700,
-                  background: "linear-gradient(135deg, #ff7f65, #ffa590)",
-                  color: "white",
-                  border: "none",
+                  background: "#F08A75", // Muted Coral (Primary Warm Accent)
+                  color: "#FFFFFF",
+                  border: "1px solid #F08A75",
                   cursor: "pointer",
-                  boxShadow: "0 4px 14px rgba(255, 127, 101, 0.18)",
+                  boxShadow: "0 4px 12px rgba(240,138,117,0.25)",
                   transition: "all 0.2s"
                 }}
-                onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
-                onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}
+                onClick={() => window.open("https://tally.so/r/n0pRk9", "_blank", "noopener,noreferrer")}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 6px 16px rgba(240,138,117,0.32)"; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 4px 12px rgba(240,138,117,0.25)"; }}
               >
                 Join
               </button>
@@ -700,9 +648,9 @@ export default function Waitlist() {
             <div
               style={{
                 fontSize: "14px",
-                color: "#9ca3af",
+                color: "#8893AD",
                 paddingTop: "32px",
-                borderTop: "1px solid rgba(255, 127, 101, 0.1)",
+                borderTop: "1px solid #C9CCD1",
               }}
             >
               © 2025 introflo.io. All rights reserved.
