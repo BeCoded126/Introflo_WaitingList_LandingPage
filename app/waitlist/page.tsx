@@ -29,7 +29,7 @@ export default function Waitlist() {
   // Card data with real interior images from public/images
   const cards = [
     {
-      title: "The SD Mindset",
+      title: "Tranquility Behavioral Health",
       location: "Coral Springs, FL",
       services: "Therapy • IOP • Counseling",
       image: "/images/interior-1.jpg",
@@ -401,10 +401,10 @@ export default function Waitlist() {
                     <span>●●●●</span>
                   </div>
 
-                  <div style={{ padding: "12px 20px", background: "#8893AD", display: "flex", alignItems: "center", gap: "12px" }}>
+                  <div style={{ padding: "16px 20px", background: "#8893AD", display: "flex", alignItems: "center", gap: "12px" }}>
                     <div style={{ width: "40px", height: "40px", borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px" }}>🏥</div>
                     <div>
-                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF" }}>The SD Mindset</div>
+                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF" }}>Tranquility Behavioral Health</div>
                       <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.9)" }}>Online</div>
                     </div>
                   </div>
