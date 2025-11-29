@@ -330,26 +330,26 @@ export default function Waitlist() {
 
             {/* Problem → Outcome bullets removed per request */}
             {/* Waitlist input field (dynamically loaded client-only component) */}
-            {mounted && (
-              <div style={{ marginTop: 20 }}>
-                <div
-                  style={{
-                    fontSize: 24,
-                    fontWeight: 800,
-                    marginTop: 24,
-                    marginBottom: 20,
-                    color: "#2B2D31",
-                  }}
-                >
-                  BE ONE OF THE FIRST TO GAIN ACCESS.
-                </div>
+            <div style={{ marginTop: 20 }}>
+              <div
+                style={{
+                  fontSize: 24,
+                  fontWeight: 800,
+                  marginTop: 24,
+                  marginBottom: 20,
+                  color: "#2B2D31",
+                }}
+              >
+                BE ONE OF THE FIRST TO GAIN ACCESS.
+              </div>
+              {mounted && (
                 <StickyWaitlist
                   heroEmail={heroEmail}
                   setHeroEmail={setHeroEmail}
                   handleHeroSubmit={handleHeroSubmit}
                 />
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           {/* Two iPhone Devices Side by Side (client-only to avoid hydration drift) */}
