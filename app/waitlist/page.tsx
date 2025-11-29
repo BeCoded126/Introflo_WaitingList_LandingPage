@@ -222,7 +222,7 @@ export default function Waitlist() {
           <div style={{ maxWidth: "600px" }}>
             <h1
               style={{
-                fontSize: "clamp(24px, 2.8vw, 38px)",
+                fontSize: "clamp(26.4px, 3.08vw, 41.8px)",
                 fontWeight: 800,
                 lineHeight: 1.1,
                 marginBottom: "12px",
@@ -235,7 +235,7 @@ export default function Waitlist() {
                 textOverflow: "ellipsis",
               }}
             >
-              We Help Your Private Practice Connect <em>Faster & Smarter</em>...
+              We Help Your Private Practice Connect <em>Faster & Smarter</em>
             </h1>
 
             <h3
