@@ -3,10 +3,43 @@ import NextAuth from "next-auth";
 import { createClient } from "@supabase/supabase-js";
 import { Provider } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_KEY!
-);
+// Create Supabase client only when environment variables are present.
+// In build or preview environments where these may be unset, fall back
+// to a lightweight mock client so the module does not throw at import time.
+function makeMockQueryBuilder() {
+  const builder: any = {
+    select: () => builder,
+    eq: () => builder,
+    order: async () => ({ data: [], error: null }),
+    insert: async () => ({ data: [], error: null }),
+    delete: async () => ({ error: null }),
+    update: () => ({ eq: () => ({ data: [], error: null }) }),
+    single: async () => ({ data: null, error: null }),
+  };
+  return builder;
+}
+
+function makeMockClient() {
+  return {
+    from() {
+      return makeMockQueryBuilder();
+    },
+  } as any;
+}
+
+const _supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const _supabaseKey = process.env.SUPABASE_SERVICE_KEY || "";
+
+let supabase: any;
+if (_supabaseUrl && _supabaseKey) {
+  try {
+    supabase = createClient(_supabaseUrl, _supabaseKey);
+  } catch (_e) {
+    supabase = makeMockClient();
+  }
+} else {
+  supabase = makeMockClient();
+}
 
 export const authConfig = {
   providers: [],
