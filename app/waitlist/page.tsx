@@ -146,6 +146,18 @@ export default function Waitlist() {
     setMounted(true);
   }, []);
 
+  const handleFooterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const value = footerEmail.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!value || !emailRegex.test(value)) {
+      alert("Please enter a valid email address to join the waitlist.");
+      return;
+    }
+    // On success open the same tally form (keeps previous behavior)
+    window.open("https://tally.so/r/n0pRk9", "_blank", "noopener,noreferrer");
+  };
+
   // Note: No QR rendering on this page; QR generation removed to avoid unnecessary client work
   return (
     <div
@@ -573,7 +585,8 @@ export default function Waitlist() {
             >
               BE ONE OF THE FIRST TO GAIN ACCESS
             </h3>
-            <div
+            <form
+              onSubmit={handleFooterSubmit}
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -606,6 +619,7 @@ export default function Waitlist() {
                 }}
               />
               <button
+                type="submit"
                 style={{
                   padding: "14px 28px",
                   fontSize: "16px",
@@ -618,13 +632,6 @@ export default function Waitlist() {
                   boxShadow: "0 4px 12px rgba(240,138,117,0.25)",
                   transition: "all 0.2s",
                 }}
-                onClick={() =>
-                  window.open(
-                    "https://tally.so/r/n0pRk9",
-                    "_blank",
-                    "noopener,noreferrer"
-                  )
-                }
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-2px)";
                   e.currentTarget.style.boxShadow =
@@ -638,7 +645,7 @@ export default function Waitlist() {
               >
                 Join
               </button>
-            </div>
+            </form>
             <div
               style={{
                 fontSize: "14px",
