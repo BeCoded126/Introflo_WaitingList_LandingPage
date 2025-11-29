@@ -204,9 +204,21 @@ export default function Waitlist() {
       </nav>
 
       {/* Hero Section */}
-        <section className="hero-section">
-          <div className="container">
-            <div className="waitlist-hero-grid">
+      <section
+        style={{
+          padding: "48px 40px 100px",
+          maxWidth: "1400px",
+          margin: "0 auto",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "80px",
+            alignItems: "center",
+          }}
+        >
           <div style={{ maxWidth: "600px" }}>
             <h1
               style={{
@@ -349,7 +361,7 @@ export default function Waitlist() {
 
           {/* Carousel container: renders phones (state 0) or desktop mock (state 1) */}
           {mounted && (
-            <div className="hero-carousel-wrapper" style={{ minHeight: "580px" }}>
+            <div style={{ position: "relative", width: "auto", minHeight: "580px", display: "flex", alignItems: "center", justifyContent: "center" }}>
               {/* Phones panel (state 0) */}
               <div
                 style={{
@@ -364,20 +376,21 @@ export default function Waitlist() {
               >
                 {/* Phone 1 - Swipe Deck */}
                 <div
-                  <div className="phone-wrapper"
-                    style={{
-                      background: "#E5E7EB",
-                      borderRadius: "40px",
-                      padding: "12px",
-                      boxShadow:
-                        activePhone === 0
-                          ? "0 30px 60px rgba(0,0,0,0.12)"
-                          : "0 20px 40px rgba(0,0,0,0.12)",
-                      transform: activePhone === 0 ? "scale(1.05)" : "scale(1)",
-                      transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                    }}
-                  >
-                    <div className="phone-inner" style={{ background: "#FFFFFF", borderRadius: "32px", overflow: "hidden", position: "relative" }}>
+                  style={{
+                    width: "280px",
+                    height: "580px",
+                    background: "#E5E7EB",
+                    borderRadius: "40px",
+                    padding: "12px",
+                    boxShadow:
+                      activePhone === 0
+                        ? "0 30px 60px rgba(0,0,0,0.12)"
+                        : "0 20px 40px rgba(0,0,0,0.12)",
+                    transform: activePhone === 0 ? "scale(1.05)" : "scale(1)",
+                    transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                  }}
+                >
+                  <div style={{ width: "100%", height: "100%", background: "#FFFFFF", borderRadius: "32px", overflow: "hidden", position: "relative" }}>
                     <div style={{ padding: "16px 20px 8px", display: "flex", justifyContent: "space-between", fontSize: "11px", fontWeight: 600, color: "#3A3A3D" }}>
                       <span>9:41</span>
                       <span>●●●●</span>
@@ -411,8 +424,6 @@ export default function Waitlist() {
 
                 {/* Phone 2 */}
                 <div style={{ width: "280px", height: "580px", background: "#E5E7EB", borderRadius: "40px", padding: "12px", boxShadow: activePhone === 1 ? "0 30px 60px rgba(0,0,0,0.12)" : "0 20px 40px rgba(0,0,0,0.12)", transform: activePhone === 1 ? "scale(1.05)" : "scale(1)", transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)" }}>
-                  <div className="phone-wrapper" style={{ background: "#E5E7EB", borderRadius: "40px", padding: "12px", boxShadow: activePhone === 1 ? "0 30px 60px rgba(0,0,0,0.12)" : "0 20px 40px rgba(0,0,0,0.12)", transform: activePhone === 1 ? "scale(1.05)" : "scale(1)", transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)" }}>
-                    <div className="phone-inner" style={{ background: "#FFFFFF", borderRadius: "32px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                   <div style={{ width: "100%", height: "100%", background: "#FFFFFF", borderRadius: "32px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                     <div style={{ padding: "16px 20px 8px", display: "flex", justifyContent: "space-between", fontSize: "11px", fontWeight: 600, color: "#3A3A3D" }}>
                       <span>9:41</span>
