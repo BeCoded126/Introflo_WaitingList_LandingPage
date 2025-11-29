@@ -235,7 +235,7 @@ export default function Waitlist() {
                 textOverflow: "ellipsis",
               }}
             >
-              We Help Your Private Practice Connect <em>Faster & Smarter</em>
+              We Help Your Private Practice Connect <em>Faster & Smarter</em>...
             </h1>
 
             <h3
