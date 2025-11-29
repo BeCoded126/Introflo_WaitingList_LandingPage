@@ -1,31 +1,14 @@
-"use client";
+// Callback route disabled — moved to `app/auth_disabled/callback`.
+export const dynamic = "force-dynamic";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
-
-export default function AuthCallback() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const handleAuthCallback = async () => {
-      const { error } = await supabase.auth.exchangeCodeForSession(
-        window.location.search
-      );
-      if (error) {
-        console.error("Error during auth callback:", error);
-        router.push("/auth/signin?error=Unable to sign in");
-      } else {
-        router.push("/app/dashboard");
-      }
-    };
-
-    handleAuthCallback();
-  }, [router]);
-
+export default function DisabledAuthCallback() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-indigo-500" />
+    <div style={{ padding: 48, maxWidth: 720, margin: "64px auto" }}>
+      <h2>Auth callback disabled</h2>
+      <p>
+        The auth callback has been disabled in this environment. The previous
+        callback handler exists under <code>/auth_disabled/callback</code>.
+      </p>
     </div>
   );
 }

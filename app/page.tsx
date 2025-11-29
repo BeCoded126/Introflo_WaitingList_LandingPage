@@ -120,7 +120,7 @@ export default function Home() {
             introflo.io
           </span>
           <Link
-            href="/auth"
+            href="/auth_disabled"
             style={{
               padding: "12px 28px",
               fontSize: "15px",

@@ -11,8 +11,8 @@ export default function Navigation() {
   const isAuthenticated = pathname?.startsWith("/app/");
 
   const publicLinks = [
-    { href: "/auth/signin", label: "Sign In" },
-    { href: "/auth/signup", label: "Sign Up" },
+    { href: "/auth_disabled/signin", label: "Sign In" },
+    { href: "/auth_disabled/signup", label: "Sign Up" },
   ];
 
   return (
@@ -68,7 +68,7 @@ export default function Navigation() {
         </div>
         <div className="nav-links-right">
           {isAuthenticated ? (
-            <Link href="/auth/signout" className="nav-link">
+            <Link href="/auth_disabled/signout" className="nav-link">
               Log Out
             </Link>
           ) : (

@@ -9,7 +9,7 @@ export default function QRCodePage() {
 
   useEffect(() => {
     // Get the network URL (your local IP)
-    const url = "http://192.168.0.60:3000/auth/signin";
+    const url = "http://192.168.0.60:3000/auth_disabled/signin";
     setNetworkUrl(url);
 
     // Generate QR code
