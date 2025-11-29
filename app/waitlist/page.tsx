@@ -16,6 +16,34 @@ export default function Waitlist() {
   const [isSwiping, setIsSwiping] = useState(false);
   const [swipeDir, setSwipeDir] = useState<string | null>(null);
 
+  // Hero waitlist input state (independent from footer)
+  const [heroEmail, setHeroEmail] = useState("");
+  const [footerEmail, setFooterEmail] = useState("");
+
+  const TALLY_URL = "https://tally.so/r/n0pRk9";
+
+  const handleHeroSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const value = heroEmail.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!value || !emailRegex.test(value)) {
+      alert("Please enter a valid email address to join the waitlist.");
+      return;
+    }
+    window.location.href = `${TALLY_URL}?hero_email=${encodeURIComponent(value)}`;
+  };
+
+  const handleFooterSubmit = (e?: React.MouseEvent | React.FormEvent) => {
+    e?.preventDefault?.();
+    const value = footerEmail.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!value || !emailRegex.test(value)) {
+      alert("Please enter a valid email address to join the waitlist.");
+      return;
+    }
+    window.location.href = `${TALLY_URL}?footer_email=${encodeURIComponent(value)}`;
+  };
+
   // Device alternation: show desktop every other cycle
   const showDesktop = activePhone === 1;
 
@@ -197,7 +225,7 @@ export default function Waitlist() {
           <div style={{ maxWidth: "600px" }}>
             <h1
               style={{
-                fontSize: "clamp(24px, 2.8vw, 38px)",
+                fontSize: "clamp(26.4px, 3.08vw, 41.8px)",
                 fontWeight: 800,
                 lineHeight: 1.1,
                 marginBottom: "12px",
@@ -223,7 +251,7 @@ export default function Waitlist() {
                 maxWidth: "780px",
               }}
             >
-              To Verified Partners Who Are <u>Looking For You Too.</u>
+              With Verified Partners Who Are <u>Looking For You Too.</u>
             </h3>
 
             <ul
@@ -296,7 +324,7 @@ export default function Waitlist() {
                 >
                   ●
                 </span>
-                <span>Build your network effortlessly</span>
+                <span>Connect & Build your Network Effortlessly</span>
               </li>
             </ul>
 
@@ -313,9 +341,13 @@ export default function Waitlist() {
                     color: "#2B2D31",
                   }}
                 >
-                  BE ONE OF THE FIRST TO GAIN ACCESS
+                  BE ONE OF THE FIRST TO GAIN ACCESS.
                 </div>
-                <StickyWaitlist />
+                <StickyWaitlist
+                  heroEmail={heroEmail}
+                  setHeroEmail={setHeroEmail}
+                  handleHeroSubmit={handleHeroSubmit}
+                />
               </div>
             )}
           </div>
@@ -656,7 +688,7 @@ export default function Waitlist() {
         </div>
       </section>
 
-      <section style={{ padding: "100px 24px", background: "#FFFFFF" }}>
+      <section style={{ padding: "32px 24px", background: "#FFFFFF" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "60px" }}>
             <h2
@@ -670,7 +702,7 @@ export default function Waitlist() {
               Why Choose introflo.io?
             </h2>
             <p style={{ fontSize: "18px", color: "#3A3A3D" }}>
-              Everything you need to build a strong referral network
+              Everything You Need to Build a Strong Referral Network
             </p>
           </div>
 
@@ -769,7 +801,7 @@ export default function Waitlist() {
                 color: "#2B2D31",
               }}
             >
-              BE ONE OF THE FIRST TO GAIN ACCESS
+              BE ONE OF THE FIRST TO GAIN ACCESS.
             </h3>
             <div
               style={{
@@ -797,6 +829,8 @@ export default function Waitlist() {
                   boxShadow: "0 2px 6px rgba(0,0,0,0.04)",
                   transition: "border 0.2s",
                 }}
+                value={footerEmail}
+                onChange={(e) => setFooterEmail(e.target.value)}
               />
               <button
                 style={{
@@ -811,13 +845,7 @@ export default function Waitlist() {
                   boxShadow: "0 4px 12px rgba(240,138,117,0.25)",
                   transition: "all 0.2s",
                 }}
-                onClick={() =>
-                  window.open(
-                    "https://tally.so/r/n0pRk9",
-                    "_blank",
-                    "noopener,noreferrer"
-                  )
-                }
+                onClick={(e) => handleFooterSubmit(e)}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-2px)";
                   e.currentTarget.style.boxShadow =

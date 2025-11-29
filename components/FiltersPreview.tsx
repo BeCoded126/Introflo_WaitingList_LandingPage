@@ -31,7 +31,7 @@ export default function FiltersPreview({
         </div>
         <div>
           <div style={{ fontSize: 12, color: "#374151", marginBottom: 6 }}>Distance</div>
-          <select value={distance} readOnly style={{ width: "100%", padding: "8px 10px", borderRadius: 8, border: "1px solid rgba(2,6,23,0.06)", fontSize: 13 }}>
+          <select value={distance} disabled style={{ width: "100%", padding: "8px 10px", borderRadius: 8, border: "1px solid rgba(2,6,23,0.06)", fontSize: 13 }}>
             <option value="">Any distance</option>
             <option value="10">Within 10 miles</option>
             <option value="25">Within 25 miles</option>
