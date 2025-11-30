@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import supabase from "../../lib/supabaseClient";
 
 export default function AuthPage() {
   const [email, setEmail] = useState("");
@@ -15,6 +14,9 @@ export default function AuthPage() {
     setStatus("loading");
     setMsg(null);
     try {
+      // Import supabase at interaction time to avoid server-side prerender
+      const mod = await import("../../lib/supabaseClient");
+      const supabase = mod?.default || mod?.supabase;
       const { error } = await supabase.auth.signInWithOtp({ email });
       if (error) throw error;
       setStatus("sent");

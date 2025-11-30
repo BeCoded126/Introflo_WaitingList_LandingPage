@@ -2,13 +2,15 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
 
 export default function AuthCallback() {
   const router = useRouter();
 
   useEffect(() => {
     const handleAuthCallback = async () => {
+      // Dynamically import supabase on the client inside the effect
+      const mod = await import("../../../lib/supabase");
+      const supabase = mod.supabase;
       const { error } = await supabase.auth.exchangeCodeForSession(
         window.location.search
       );
