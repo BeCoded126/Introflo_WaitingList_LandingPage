@@ -214,14 +214,7 @@ export default function Waitlist() {
           margin: "0 auto",
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "80px",
-            alignItems: "center",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <div style={{ maxWidth: "600px" }}>
             <h1
               style={{
@@ -350,22 +343,18 @@ export default function Waitlist() {
 
           {/* Shared mockup container that holds both mobile and desktop layers */}
           {mounted && (
-            <div
-              style={{
-                width: "590px", // two phones (280 + 280) + 30 gap
+            <div className="w-full md:w-[590px]" style={{
                 height: "580px",
                 position: "relative",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-            >
+              }}>
               {/* Mobile layer: two phones side-by-side */}
               <div
                 style={{
                   position: "absolute",
                   inset: 0,
-                  display: "flex",
                   gap: "30px",
                   alignItems: "center",
                   justifyContent: "center",
@@ -373,23 +362,25 @@ export default function Waitlist() {
                   opacity: showDesktop ? 0 : 1,
                   transform: showDesktop ? "scale(0.98)" : "scale(1)",
                 }}
+                className="absolute inset-0 flex"
               >
                 {/* Phone 1 - Swipe Deck */}
-                <div
-                  style={{
-                    width: "280px",
-                    height: "580px",
-                    background: "#E5E7EB",
-                    borderRadius: "40px",
-                    padding: "12px",
-                    boxShadow:
-                      activePhone === 0
-                        ? "0 30px 60px rgba(0,0,0,0.12)"
-                        : "0 20px 40px rgba(0,0,0,0.12)",
-                    transform: activePhone === 0 ? "scale(1.05)" : "scale(1)",
-                    transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                  }}
-                >
+                <div className="w-[90%] max-w-sm mx-auto md:w-auto md:max-w-none">
+                  <div
+                    style={{
+                      width: "280px",
+                      height: "580px",
+                      background: "#E5E7EB",
+                      borderRadius: "40px",
+                      padding: "12px",
+                      boxShadow:
+                        activePhone === 0
+                          ? "0 30px 60px rgba(0,0,0,0.12)"
+                          : "0 20px 40px rgba(0,0,0,0.12)",
+                      transform: activePhone === 0 ? "scale(1.05)" : "scale(1)",
+                      transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  >
                   <div
                     style={{
                       width: "100%",
@@ -537,23 +528,25 @@ export default function Waitlist() {
                         </div>
                     </div>
                   </div>
+                  </div>
                 </div>
 
-                <div
-                  style={{
-                    width: "280px",
-                    height: "580px",
-                    background: "#E5E7EB",
-                    borderRadius: "40px",
-                    padding: "12px",
-                    boxShadow:
-                      activePhone === 1
-                        ? "0 30px 60px rgba(0,0,0,0.12)"
-                        : "0 20px 40px rgba(0,0,0,0.12)",
-                    transform: activePhone === 1 ? "scale(1.05)" : "scale(1)",
-                    transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                  }}
-                >
+                <div className="hidden md:block">
+                  <div
+                    style={{
+                      width: "280px",
+                      height: "580px",
+                      background: "#E5E7EB",
+                      borderRadius: "40px",
+                      padding: "12px",
+                      boxShadow:
+                        activePhone === 1
+                          ? "0 30px 60px rgba(0,0,0,0.12)"
+                          : "0 20px 40px rgba(0,0,0,0.12)",
+                      transform: activePhone === 1 ? "scale(1.05)" : "scale(1)",
+                      transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  >
                   <div
                     style={{
                       width: "100%",
@@ -702,13 +695,11 @@ export default function Waitlist() {
                 style={{
                   position: "absolute",
                   inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
                   transition: "opacity 600ms cubic-bezier(0.4,0,0.2,1), transform 600ms cubic-bezier(0.4,0,0.2,1)",
                   opacity: showDesktop ? 1 : 0,
                   transform: showDesktop ? "scale(1)" : "scale(0.98)",
                 }}
+                className="hidden md:flex absolute inset-0 items-center justify-center"
               >
                 <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <DesktopMockup />
