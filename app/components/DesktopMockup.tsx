@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import FiltersPreview from "./FiltersPreview";
-import Card, { Facility } from "./Card";
+import FiltersPreview from "@/components/FiltersPreview";
+import Card, { Facility } from "@/components/Card";
 
-export default function DesktopMock({ isActive = true }: { isActive?: boolean }) {
+export default function DesktopMockup({ isActive = true }: { isActive?: boolean }) {
   const [stepIndex, setStepIndex] = useState(0);
 
   // Animation steps (stepIndex):
@@ -78,10 +78,8 @@ export default function DesktopMock({ isActive = true }: { isActive?: boolean })
 
   const activeInsurances = stepIndex >= 3 ? ["Florida Blue"] : [];
   const activeServices = stepIndex >= 5 ? ["Therapy"] : [];
-  // Ensure an Ages Treated pill is selected on every loop; show it at step 6
   const activeAges = stepIndex >= 6 ? ["Young Adult (18-25)"] : [];
 
-  // card scaling: reduce the card size so full card is always visible
   const dashboardScale = 0.7; // scale applied to whole dashboard area
   const panelWidth = 420; // narrower panel so cards remain visible behind it
   const filtersButtonBaseScale = 0.9;
@@ -93,7 +91,6 @@ export default function DesktopMock({ isActive = true }: { isActive?: boolean })
   const bezelColor = "#0f172a";
   const innerScreenPadding = 20;
 
-  // facility data (use real Card component for accurate proportions)
   const baseFacility: Facility = {
     id: "1",
     name: "Tranquility Behavioral",
