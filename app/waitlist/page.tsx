@@ -208,20 +208,15 @@ export default function Waitlist() {
 
       {/* Hero Section */}
       <section
+        className="px-4 md:px-10 lg:px-40"
         style={{
-          padding: "48px 40px 40px",
+          paddingTop: "48px",
+          paddingBottom: "40px",
           maxWidth: "1400px",
           margin: "0 auto",
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "80px",
-            alignItems: "center",
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <div style={{ maxWidth: "600px" }}>
             <h1
               style={{
@@ -719,7 +714,7 @@ export default function Waitlist() {
         </div>
       </section>
 
-      <section style={{ padding: "60px 24px", background: "#FFFFFF" }}>
+      <section className="px-4 md:px-12 lg:px-24" style={{ paddingTop: "60px", paddingBottom: "60px", background: "#FFFFFF" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "60px" }}>
             <h2
@@ -737,13 +732,7 @@ export default function Waitlist() {
             </p>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "40px",
-            }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
             {[
               {
                 icon: "🎯",
