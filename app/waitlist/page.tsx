@@ -147,7 +147,9 @@ export default function Waitlist() {
       alert("Please enter a valid email address to join the waitlist.");
       return;
     }
-    window.location.href = `${TALLY_URL}?hero_email=${encodeURIComponent(value)}`;
+    window.location.href = `${TALLY_URL}?hero_email=${encodeURIComponent(
+      value
+    )}`;
   };
 
   const handleFooterSubmit = (e?: React.MouseEvent | React.FormEvent) => {
@@ -158,7 +160,9 @@ export default function Waitlist() {
       alert("Please enter a valid email address to join the waitlist.");
       return;
     }
-    window.location.href = `${TALLY_URL}?footer_email=${encodeURIComponent(value)}`;
+    window.location.href = `${TALLY_URL}?footer_email=${encodeURIComponent(
+      value
+    )}`;
   };
 
   // Note: No QR rendering on this page; QR generation removed to avoid unnecessary client work
@@ -184,7 +188,7 @@ export default function Waitlist() {
       >
         <div
           style={{
-            maxWidth: "1400px",
+            maxWidth: "1200px",
             margin: "0 auto",
             padding: "20px 40px",
             display: "flex",
@@ -212,7 +216,7 @@ export default function Waitlist() {
         style={{
           paddingTop: "48px",
           paddingBottom: "40px",
-          maxWidth: "1400px",
+          maxWidth: "1200px",
           margin: "0 auto",
         }}
       >
@@ -338,7 +342,175 @@ export default function Waitlist() {
                 >
                   BE ONE OF THE FIRST TO GAIN ACCESS.
                 </div>
-                <StickyWaitlist heroEmail={heroEmail} setHeroEmail={setHeroEmail} handleHeroSubmit={handleHeroSubmit} />
+                <StickyWaitlist
+                  heroEmail={heroEmail}
+                  setHeroEmail={setHeroEmail}
+                  handleHeroSubmit={handleHeroSubmit}
+                />
+              </div>
+            )}
+
+            {/* Mobile-only: single static left phone mockup (centered, responsive) */}
+            {mounted && (
+              <div
+                className="only-mobile"
+                style={{ marginTop: 20, overflow: "hidden", justifyContent: "center" }}
+                aria-hidden="true"
+              >
+                <div
+                  style={{
+                    width: "90vw",
+                    maxWidth: "320px",
+                    height: "600px",
+                    borderRadius: "40px",
+                    padding: "12px",
+                    background: "#E5E7EB",
+                    boxShadow: "0 20px 40px rgba(0,0,0,0.12)",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      background: "#FFFFFF",
+                      borderRadius: "32px",
+                      overflow: "hidden",
+                      position: "relative",
+                    }}
+                  >
+                    <div
+                      style={{
+                        padding: "16px 20px 8px",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        fontSize: "11px",
+                        fontWeight: 600,
+                        color: "#3A3A3D",
+                      }}
+                    >
+                      <span>9:41</span>
+                      <span>●●●●</span>
+                    </div>
+
+                    <div style={{ padding: "16px 20px", textAlign: "center" }}>
+                      <div
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: 800,
+                          marginTop: "8px",
+                          color: "#2B2D31",
+                          letterSpacing: "0.3px",
+                        }}
+                      >
+                        introflo.io
+                      </div>
+                    </div>
+
+                    <div style={{ padding: "0 20px" }}>
+                      <div
+                        style={{
+                          background: "#FFFFFF",
+                          borderRadius: "20px",
+                          overflow: "hidden",
+                          boxShadow: "0 8px 24px rgba(0,0,0,0.08)",
+                          transform: "none",
+                          opacity: 1,
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "220px",
+                            background: "#E5E7EB",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: "#2B2D31",
+                            fontSize: "48px",
+                          }}
+                        >
+                          <img
+                            src={cards[0].image}
+                            alt={cards[0].title}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
+                        </div>
+                        <div style={{ padding: "16px" }}>
+                          <div
+                            style={{
+                              fontSize: "16px",
+                              fontWeight: 700,
+                              marginBottom: "6px",
+                            }}
+                          >
+                            {cards[0].title}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: "12px",
+                              color: "#6b7280",
+                              marginBottom: "8px",
+                            }}
+                          >
+                            📍 {cards[0].location}
+                          </div>
+                          <div style={{ fontSize: "10px", color: "#9ca3af" }}>
+                            Therapy • IOP • Counseling
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "16px",
+                          justifyContent: "center",
+                          marginTop: "20px",
+                        }}
+                      >
+                        <div
+                          aria-hidden="true"
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            borderRadius: "50%",
+                            background: "#FFFFFF",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "24px",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                            userSelect: "none",
+                          }}
+                        >
+                          ✕
+                        </div>
+                        <div
+                          aria-hidden="true"
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            borderRadius: "50%",
+                            background: "#8893AD",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "24px",
+                            color: "#FFFFFF",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                            userSelect: "none",
+                          }}
+                        >
+                          ♥
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -346,11 +518,11 @@ export default function Waitlist() {
           {/* Shared mockup container that holds both mobile and desktop layers */}
           {mounted && (
             <div
+              className="only-desktop"
               style={{
                 width: "590px", // two phones (280 + 280) + 30 gap
                 height: "580px",
                 position: "relative",
-                display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}
@@ -364,7 +536,8 @@ export default function Waitlist() {
                   gap: "30px",
                   alignItems: "center",
                   justifyContent: "center",
-                  transition: "opacity 600ms cubic-bezier(0.4,0,0.2,1), transform 600ms cubic-bezier(0.4,0,0.2,1)",
+                  transition:
+                    "opacity 600ms cubic-bezier(0.4,0,0.2,1), transform 600ms cubic-bezier(0.4,0,0.2,1)",
                   opacity: showDesktop ? 0 : 1,
                   transform: showDesktop ? "scale(0.98)" : "scale(1)",
                 }}
@@ -486,50 +659,50 @@ export default function Waitlist() {
                         </div>
                       </div>
 
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "16px",
+                          justifyContent: "center",
+                          marginTop: "20px",
+                        }}
+                      >
                         <div
+                          aria-hidden="true"
                           style={{
+                            width: "50px",
+                            height: "50px",
+                            borderRadius: "50%",
+                            background: "#FFFFFF",
                             display: "flex",
-                            gap: "16px",
+                            alignItems: "center",
                             justifyContent: "center",
-                            marginTop: "20px",
+                            fontSize: "24px",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                            userSelect: "none",
                           }}
                         >
-                          <div
-                            aria-hidden="true"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              borderRadius: "50%",
-                              background: "#FFFFFF",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "24px",
-                              boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                              userSelect: "none",
-                            }}
-                          >
-                            ✕
-                          </div>
-                          <div
-                            aria-hidden="true"
-                            style={{
-                              width: "50px",
-                              height: "50px",
-                              borderRadius: "50%",
-                              background: "#8893AD",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              fontSize: "24px",
-                              color: "#FFFFFF",
-                              boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
-                              userSelect: "none",
-                            }}
-                          >
-                            ♥
-                          </div>
+                          ✕
                         </div>
+                        <div
+                          aria-hidden="true"
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            borderRadius: "50%",
+                            background: "#8893AD",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "24px",
+                            color: "#FFFFFF",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                            userSelect: "none",
+                          }}
+                        >
+                          ♥
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -595,13 +768,32 @@ export default function Waitlist() {
                           justifyContent: "center",
                         }}
                       >
-                        <img src={cards[0].image} alt={cards[0].title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                        <img
+                          src={cards[0].image}
+                          alt={cards[0].title}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
                       </div>
                       <div style={{ display: "flex", flexDirection: "column" }}>
-                        <div style={{ fontSize: "14px", fontWeight: 700, color: "#FFFFFF" }}>
+                        <div
+                          style={{
+                            fontSize: "14px",
+                            fontWeight: 700,
+                            color: "#FFFFFF",
+                          }}
+                        >
                           Tranquility Behavioral
                         </div>
-                        <div style={{ fontSize: "11px", color: "rgba(255, 255, 255, 0.9)" }}>
+                        <div
+                          style={{
+                            fontSize: "11px",
+                            color: "rgba(255, 255, 255, 0.9)",
+                          }}
+                        >
                           Online
                         </div>
                       </div>
@@ -700,12 +892,21 @@ export default function Waitlist() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  transition: "opacity 600ms cubic-bezier(0.4,0,0.2,1), transform 600ms cubic-bezier(0.4,0,0.2,1)",
+                  transition:
+                    "opacity 600ms cubic-bezier(0.4,0,0.2,1), transform 600ms cubic-bezier(0.4,0,0.2,1)",
                   opacity: showDesktop ? 1 : 0,
                   transform: showDesktop ? "scale(1)" : "scale(0.98)",
                 }}
               >
-                <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
                   <DesktopMockup />
                 </div>
               </div>
@@ -714,7 +915,14 @@ export default function Waitlist() {
         </div>
       </section>
 
-      <section className="px-4 md:px-12 lg:px-24" style={{ paddingTop: "60px", paddingBottom: "60px", background: "#FFFFFF" }}>
+      <section
+        className="px-4 md:px-12 lg:px-24"
+        style={{
+          paddingTop: "60px",
+          paddingBottom: "60px",
+          background: "#FFFFFF",
+        }}
+      >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: "60px" }}>
             <h2

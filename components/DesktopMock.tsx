@@ -4,7 +4,11 @@ import React, { useEffect, useState } from "react";
 import FiltersPreview from "./FiltersPreview";
 import Card, { Facility } from "./Card";
 
-export default function DesktopMock({ isActive = true }: { isActive?: boolean }) {
+export default function DesktopMock({
+  isActive = true,
+}: {
+  isActive?: boolean;
+}) {
   const [stepIndex, setStepIndex] = useState(0);
 
   // Animation steps (stepIndex):
@@ -103,8 +107,7 @@ export default function DesktopMock({ isActive = true }: { isActive?: boolean })
     ageGroups: ["Adult (26-64)"],
     image: "/images/interior-1.jpg",
     insurances: ["Aetna", "Cigna", "Blue Cross Blue Shield"],
-    bio:
-      "Tranquility Behavioral is a multidisciplinary outpatient practice offering psychiatric evaluations, medication management, and evidence-based therapy. Our team focuses on personalized care, fast access to appointments, and collaborative treatment planning.",
+    bio: "Tranquility Behavioral is a multidisciplinary outpatient practice offering psychiatric evaluations, medication management, and evidence-based therapy. Our team focuses on personalized care, fast access to appointments, and collaborative treatment planning.",
   };
 
   const facilityAfterFirst: Facility = {
@@ -118,7 +121,12 @@ export default function DesktopMock({ isActive = true }: { isActive?: boolean })
     image: "/images/interior-2.jpg",
   };
 
-  const currentFacility = stepIndex >= 5 ? facilityAfterSecond : stepIndex >= 3 ? facilityAfterFirst : baseFacility;
+  const currentFacility =
+    stepIndex >= 5
+      ? facilityAfterSecond
+      : stepIndex >= 3
+      ? facilityAfterFirst
+      : baseFacility;
 
   const reducedHeight = Math.round(monitorHeight * 0.7);
   const scale = reducedHeight / monitorHeight;
@@ -128,8 +136,28 @@ export default function DesktopMock({ isActive = true }: { isActive?: boolean })
   const neckMarginTop = Math.max(6, Math.round(14 * scale));
 
   return (
-    <div className="w-full h-full flex items-center justify-center" style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <div className="w-full h-full flex items-center justify-center" style={{ width: "100%", maxWidth: monitorWidth, maxHeight: monitorHeight, display: "flex", flexDirection: "column", alignItems: "center", boxSizing: "border-box" }}>
+    <div
+      className="w-full h-full flex items-center justify-center"
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        className="w-full h-full flex items-center justify-center"
+        style={{
+          width: "100%",
+          maxWidth: monitorWidth,
+          maxHeight: monitorHeight,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          boxSizing: "border-box",
+        }}
+      >
         {/* Monitor bezel (fixed width, reduced height) */}
         <div
           className="max-w-full max-h-full object-contain"
@@ -161,38 +189,182 @@ export default function DesktopMock({ isActive = true }: { isActive?: boolean })
               alignItems: "flex-start",
             }}
           >
-            <div style={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "flex-start", overflow: "hidden" }}>
-              <div style={{ transform: `scale(${scale})`, transformOrigin: "top center", width: `${100 / scale}%`, pointerEvents: "none" }}>
-                <div style={{ height: 64, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px", borderBottom: "1px solid rgba(16,24,40,0.06)", position: "relative" }}>
-                  <div style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", fontWeight: 800, fontSize: 20, color: "#0f172a", pointerEvents: "none" }}>introflo.io</div>
-                  <div style={{ position: "absolute", right: innerScreenPadding, top: 0, height: "100%", display: "flex", alignItems: "center", gap: 12, zIndex: 2 }}>
-                    <div style={{ position: "relative", pointerEvents: "auto" }}>
-                      <div style={{ transformOrigin: "center", transition: "transform 160ms ease", transform: `scale(${pulse ? filtersButtonBaseScale * 0.96 : filtersButtonBaseScale})` }}>
-                        <div style={{ background: "#0f172a", color: "#fff", padding: "10px 16px", borderRadius: 12, display: "inline-flex", alignItems: "center", gap: 8, fontWeight: 700, fontSize: 14 }}>
-                          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  transform: `scale(${scale})`,
+                  transformOrigin: "top center",
+                  width: `${100 / scale}%`,
+                  pointerEvents: "none",
+                }}
+              >
+                <div
+                  style={{
+                    height: 64,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "0 20px",
+                    borderBottom: "1px solid rgba(16,24,40,0.06)",
+                    position: "relative",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      fontWeight: 800,
+                      fontSize: 20,
+                      color: "#0f172a",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    introflo.io
+                  </div>
+                  <div
+                    style={{
+                      position: "absolute",
+                      right: innerScreenPadding,
+                      top: 0,
+                      height: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                      zIndex: 2,
+                    }}
+                  >
+                    <div
+                      style={{ position: "relative", pointerEvents: "auto" }}
+                    >
+                      <div
+                        style={{
+                          transformOrigin: "center",
+                          transition: "transform 160ms ease",
+                          transform: `scale(${
+                            pulse
+                              ? filtersButtonBaseScale * 0.96
+                              : filtersButtonBaseScale
+                          })`,
+                        }}
+                      >
+                        <div
+                          style={{
+                            background: "#0f172a",
+                            color: "#fff",
+                            padding: "10px 16px",
+                            borderRadius: 12,
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 8,
+                            fontWeight: 700,
+                            fontSize: 14,
+                          }}
+                        >
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            aria-hidden
+                          >
                             <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3 5a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm2 5a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
                           </svg>
                           Filters
-                          <span style={{ marginLeft: 6, background: "#ef4444", color: "#fff", fontSize: 12, padding: "4px 8px", borderRadius: 999 }}>3</span>
+                          <span
+                            style={{
+                              marginLeft: 6,
+                              background: "#ef4444",
+                              color: "#fff",
+                              fontSize: 12,
+                              padding: "4px 8px",
+                              borderRadius: 999,
+                            }}
+                          >
+                            3
+                          </span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div style={{ padding: 18, height: `calc(100% - 64px)`, boxSizing: "border-box", overflow: "hidden", position: "relative" }}>
+                <div
+                  style={{
+                    padding: 18,
+                    height: `calc(100% - 64px)`,
+                    boxSizing: "border-box",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
                   <div style={{ width: "100%", height: "100%" }}>
-                    <div style={{ transform: `scale(${dashboardScale})`, transformOrigin: "top left", width: `${100 / dashboardScale}%`, display: "grid", gridTemplateColumns: "1fr", gap: 18, height: "100%" }}>
-                      <div style={{ background: "linear-gradient(180deg,#fff,#fbfbfd)", borderRadius: 10, padding: 12, display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
-                        <div style={{ pointerEvents: "auto", overflow: "visible" }}>
+                    <div
+                      style={{
+                        transform: `scale(${dashboardScale})`,
+                        transformOrigin: "top left",
+                        width: `${100 / dashboardScale}%`,
+                        display: "grid",
+                        gridTemplateColumns: "1fr",
+                        gap: 18,
+                        height: "100%",
+                      }}
+                    >
+                      <div
+                        style={{
+                          background: "linear-gradient(180deg,#fff,#fbfbfd)",
+                          borderRadius: 10,
+                          padding: 12,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 12,
+                          width: "100%",
+                        }}
+                      >
+                        <div
+                          style={{ pointerEvents: "auto", overflow: "visible" }}
+                        >
                           <Card facility={currentFacility} />
                         </div>
 
                         <div style={{ height: 10 }} />
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8 }}>
-                          <div style={{ height: 44, background: "#fff", borderRadius: 8 }} />
-                          <div style={{ height: 44, background: "#fff", borderRadius: 8 }} />
-                          <div style={{ height: 44, background: "#fff", borderRadius: 8 }} />
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(3,1fr)",
+                            gap: 8,
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: 44,
+                              background: "#fff",
+                              borderRadius: 8,
+                            }}
+                          />
+                          <div
+                            style={{
+                              height: 44,
+                              background: "#fff",
+                              borderRadius: 8,
+                            }}
+                          />
+                          <div
+                            style={{
+                              height: 44,
+                              background: "#fff",
+                              borderRadius: 8,
+                            }}
+                          />
                         </div>
                       </div>
                     </div>
@@ -213,7 +385,10 @@ export default function DesktopMock({ isActive = true }: { isActive?: boolean })
                         pointerEvents: "auto",
                         opacity: 1,
                         transition: "opacity 200ms ease, transform 200ms ease",
-                        transform: stepIndex === 1 ? "translateY(-6px)" : "translateY(0)",
+                        transform:
+                          stepIndex === 1
+                            ? "translateY(-6px)"
+                            : "translateY(0)",
                       }}
                     >
                       <FiltersPreview
@@ -231,8 +406,27 @@ export default function DesktopMock({ isActive = true }: { isActive?: boolean })
           </div>
         </div>
 
-        <div style={{ marginTop: neckMarginTop, width: 160, height: neckHeight, background: "#0f172a", borderRadius: 8, boxShadow: "0 8px 20px rgba(2,6,23,0.12)" }} />
-        <div style={{ marginTop: Math.max(4, Math.round(8 * scale)), width: 340, height: baseHeight, background: "#0b1220", borderRadius: 10, boxShadow: "0 10px 30px rgba(2,6,23,0.12)", transform: "translateY(4px)" }} />
+        <div
+          style={{
+            marginTop: neckMarginTop,
+            width: 160,
+            height: neckHeight,
+            background: "#0f172a",
+            borderRadius: 8,
+            boxShadow: "0 8px 20px rgba(2,6,23,0.12)",
+          }}
+        />
+        <div
+          style={{
+            marginTop: Math.max(4, Math.round(8 * scale)),
+            width: 340,
+            height: baseHeight,
+            background: "#0b1220",
+            borderRadius: 10,
+            boxShadow: "0 10px 30px rgba(2,6,23,0.12)",
+            transform: "translateY(4px)",
+          }}
+        />
       </div>
     </div>
   );

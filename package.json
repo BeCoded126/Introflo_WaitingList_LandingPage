@@ -39,6 +39,7 @@
     "@vitejs/plugin-react": "^5.1.0",
     "eslint": "^8.48.0",
     "happy-dom": "^20.0.10",
+    "playwright": "^1.57.0",
     "prettier": "^2.8.0",
     "prisma": "^5.0.0",
     "ts-node": "^10.9.1",

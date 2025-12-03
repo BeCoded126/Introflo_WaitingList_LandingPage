@@ -496,7 +496,7 @@ export default function Home() {
                     🏥
                   </div>
                   <div>
-                    <div
+                    style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px 40px" }}
                       style={{
                         fontSize: "14px",
                         fontWeight: 700,

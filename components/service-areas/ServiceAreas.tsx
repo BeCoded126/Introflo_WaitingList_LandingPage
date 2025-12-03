@@ -65,7 +65,9 @@ export default async function ServiceAreasPage() {
             </div>
 
             <div className="mt-8">
-              <h2 className="text-lg font-medium text-gray-900">Coverage Details</h2>
+              <h2 className="text-lg font-medium text-gray-900">
+                Coverage Details
+              </h2>
               <div className="mt-4 bg-white shadow overflow-hidden sm:rounded-lg">
                 <ul className="divide-y divide-gray-200">
                   {displayAreas.map((area) => (

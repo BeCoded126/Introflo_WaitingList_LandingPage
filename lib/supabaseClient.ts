@@ -35,14 +35,24 @@ function makeMockClient() {
         return { error: new Error("Supabase not configured") };
       },
       onAuthStateChange(_cb: any) {
-        return { data: { subscription: { unsubscribe() {} } }, error: null } as any;
+        return {
+          data: { subscription: { unsubscribe() {} } },
+          error: null,
+        } as any;
       },
     },
     from() {
       return makeMockQueryBuilder();
     },
     channel() {
-      const ch: any = { on() { return ch; }, subscribe() { return { unsubscribe() {} }; } };
+      const ch: any = {
+        on() {
+          return ch;
+        },
+        subscribe() {
+          return { unsubscribe() {} };
+        },
+      };
       return ch;
     },
   };
@@ -55,8 +65,9 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
-export const supabase = (supabaseUrl && supabaseAnonKey)
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : makeMockClient();
+export const supabase =
+  supabaseUrl && supabaseAnonKey
+    ? createClient(supabaseUrl, supabaseAnonKey)
+    : makeMockClient();
 
 export default supabase;
