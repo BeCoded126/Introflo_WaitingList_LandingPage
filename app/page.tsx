@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import LogoMark from "@/components/LogoMark";
+import DesktopMockup from "./components/DesktopMockup";
 import QRCode from "qrcode";
 
 export default function Home() {
@@ -164,14 +165,14 @@ export default function Home() {
           margin: "0 auto",
         }}
       >
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "80px",
-              alignItems: "center",
-            }}
-          >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "80px",
+            alignItems: "center",
+          }}
+        >
           <div className="hero-content" style={{ maxWidth: "600px" }}>
             <h1
               style={{
@@ -254,7 +255,7 @@ export default function Home() {
           </div>
 
           {/* Two iPhone Devices Side by Side */}
-          <div
+          <div className="phone-mockups only-desktop"
             style={{
               display: "flex",
               gap: "30px",
@@ -600,6 +601,13 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* Desktop mockup shown under hero on mobile only (re-uses component) */}
+          <div className="hero-desktop-mockup only-mobile">
+            <div className="hero-desktop-mockup-inner">
+              <DesktopMockup />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -645,7 +653,11 @@ export default function Home() {
                 desc: "All facilities verified and credentialed",
               },
             ].map((feature, i) => (
-              <div key={i} className="feature-card" style={{ textAlign: "center", padding: "32px" }}>
+              <div
+                key={i}
+                className="feature-card"
+                style={{ textAlign: "center", padding: "32px" }}
+              >
                 <div style={{ fontSize: "48px", marginBottom: "16px" }}>
                   {feature.icon}
                 </div>
