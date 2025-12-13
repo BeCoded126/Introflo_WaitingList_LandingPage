@@ -1,0 +1,8 @@
+// Moved off route to avoid Next.js prerender error. Original implementation
+// preserved here for reference. To restore, move this file back to
+// `app/app/service-areas/page.tsx` or copy its contents into a component.
+
+export const _meta = {
+  moved: true,
+  note: "Service Areas page moved to components/service-areas/ServiceAreas.tsx",
+};

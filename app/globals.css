@@ -17,6 +17,7 @@
   --accent-warm-primary: #f08a75; /* Muted Coral */
   --accent-warm-secondary: #d9a28b; /* Warm Clay */
 }
+/* No operation change */
 
 * {
   box-sizing: border-box;
@@ -137,3 +138,750 @@ a {
 .nav-link.active {
   color: #ff655c;
 }
+
+/* Mobile-only layout adjustments (max-width: 767px) */
+@media (max-width: 767px) {
+  .features-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    box-sizing: border-box;
+  }
+
+/* Temporary debug outline removed -- cleaned up for production */
+
+  .feature-card {
+    width: 100% !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-content {
+    padding: 24px 16px !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .hero-content h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero-content p {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Ensure form controls and CTAs inside hero fit the mobile width */
+  .hero-content input,
+  .hero-content button,
+  .hero-content .cta {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Fallback selectors for pages (like /waitlist) that use inline styles
+     instead of class names. These target the 3-column grid container and
+     its child cards by matching the inline grid-template declaration. */
+  .main-content
+    section
+    div
+    > div
+    > div[style*="grid-template-columns:repeat(3, 1fr)"],
+  .main-content
+    section
+    div
+    > div
+    > [style*="grid-template-columns:repeat(3, 1fr)"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .main-content
+    section
+    div
+    > div
+    > div[style*="grid-template-columns:repeat(3, 1fr)"]
+    > div,
+  .main-content
+    section
+    div
+    > div
+    > [style*="grid-template-columns:repeat(3, 1fr)"]
+    > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Fallback for hero container on pages that don't have `.hero-content` */
+  .main-content section div > div > div[style*="max-width: 600px"],
+  .main-content section div > div > [style*="max-width:600px"] {
+    padding: 24px 16px !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Broader fallbacks: match any inline grid-template declaration (no exact spacing) */
+  .main-content [style*="grid-template-columns"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  .main-content [style*="grid-template-columns"] > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Broader hero fallback (match max-width with or without space) */
+  .main-content [style*="max-width:600px"],
+  .main-content [style*="max-width: 600px"] {
+    padding: 24px 16px !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    overflow-x: hidden !important;
+  }
+}
+
+/* Desktop defaults for hero typography — moved out of inline styles */
+.hero-title {
+  font-size: clamp(42px, 5.4vw, 64px);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  color: #6b7280;
+}
+
+.hero-bullets li {
+  list-style-type: disc;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+/* HERO waitlist: desktop/base styling (applies to all sizes unless overridden) */
+.hero-waitlist {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  max-width: 520px;
+  margin-top: 16px;
+
+  background: rgba(255,255,255,0.95);
+  border-radius: 18px;
+  padding: 12px;
+
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
+}
+
+.hero-waitlist__input {
+  flex: 1;
+  min-width: 0;
+
+  height: 48px;
+  padding: 0 14px;
+  border-radius: 14px;
+
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  background: #ffffff;
+
+  outline: none;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.hero-waitlist__input::placeholder {
+  color: rgba(15, 23, 42, 0.45);
+}
+
+.hero-waitlist__btn {
+  height: 48px;
+  padding: 0 18px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  background: #F08A75;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(240,138,117,0.25);
+}
+
+/* Utility visibility classes to toggle mobile/desktop-only pieces
+     Default: do not show mobile-only elements (they'll be enabled in media query) */
+.only-mobile {
+  display: none !important;
+}
+
+/* Keep only-desktop visible by default (no rule needed, but include for clarity) */
+.only-desktop {
+  display: block !important;
+}
+
+@media (max-width: 767px) {
+  /* Hide desktop-only pieces on mobile */
+  .only-desktop {
+    display: none !important;
+  }
+
+  /* Show mobile-only pieces */
+  .only-mobile {
+    display: block !important;
+  }
+
+  /* Mobile-specific hero layout: stack and show mobile laptop under hero copy
+       Keep desktop/tablet layout untouched outside this media query. */
+  .hero-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+  }
+
+  .hero-right {
+    display: none !important; /* hide right-column on mobile */
+  }
+
+  /* Explicitly hide phone mockups on mobile (these are the iPhone visuals) */
+  .phone-mockups {
+    display: none !important;
+  }
+
+  .hero-laptop-mobile {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 24px auto 24px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Ensure the mockup keeps its aspect ratio and is not stretched */
+  .hero-laptop-mobile img,
+  .hero-laptop-mobile svg,
+  .hero-laptop-mobile > div {
+    width: 100% !important;
+    height: auto !important;
+    max-width: none !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+
+  /* Remove any transform-based scaling on mobile */
+  .hero-laptop,
+  .hero-laptop-mobile {
+    transform: none !important;
+    transform-origin: center center !important;
+  }
+}
+
+/* Desktop and up: ensure hero layout uses two-column arrangement and hides mobile copy */
+@media (min-width: 768px) {
+  .hero-layout {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .hero-left {
+    flex: 1 1 50% !important;
+  }
+
+  .hero-right {
+    flex: 1 1 50% !important;
+    display: block !important;
+  }
+
+  .hero-laptop-mobile {
+    display: none !important;
+  }
+}
+
+/* Desktop-only: ensure the two phone mockups render side-by-side
+   Keep sizes/transforms on the inner phone elements; only change
+   the container layout and positioning on wide screens. */
+@media (min-width: 1024px) {
+  .phone-mockups.only-desktop {
+    position: relative !important;
+    inset: auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 30px !important;
+    flex-wrap: nowrap !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  /* Keep each phone at its intrinsic fixed size and prevent flex grow/shrink */
+  .phone-mockups.only-desktop > div {
+    flex: 0 0 auto !important;
+  }
+
+  /* If a parent used absolute/inset to position the whole mockup area,
+     ensure we don't force full-bleed on the phone row specifically. */
+  .hero-mockups.only-desktop {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+/* Visibility helpers */
+.only-mobile {
+  display: none;
+}
+
+.only-desktop {
+  display: block;
+}
+
+/* Mobile layout tweaks */
+@media (max-width: 767px) {
+  /* Hero goes to single column: text on top, visuals under */
+  .hero-layout {
+    display: block; /* override grid on small screens */
+  }
+
+  .hero-left {
+    margin-bottom: 32px;
+  }
+
+  /* Hide phone mockups + desktop column on mobile */
+  .only-desktop {
+    display: none !important;
+  }
+
+  .only-mobile {
+    display: flex !important;
+  }
+
+  .hero-laptop-mobile {
+    justify-content: center;
+  }
+
+  /* Make sure the laptop graphic keeps its aspect ratio */
+  .hero-laptop img,
+  .hero-laptop svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Stack feature tiles so all 3 show cleanly */
+  .features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .feature-card {
+    max-width: 420px;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+/* Mobile-only overrides requested by user */
+@media (max-width: 768px) {
+  .hero-laptop-mobile {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    display: block;
+    text-align: center;
+  }
+
+  .hero-laptop-mobile img {
+    width: 590px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Reduce any vertical spacing between hero text and mobile mockup */
+  .hero-layout {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important; /* ensure no grid gap adds vertical space */
+  }
+
+  .hero-content {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .hero-right,
+  .only-desktop {
+    display: none !important;
+  }
+
+  .hero-left {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+/* --- Mobile hero mockup adjustments (user requested) --- */
+/* Default visibility utilities (desktop-first) */
+.only-mobile {
+  display: none !important;
+}
+.only-desktop {
+  display: block !important;
+}
+
+@media (max-width: 767px) {
+  /* Hide desktop-only blocks on mobile and show mobile-only instead */
+  .only-desktop {
+    display: none !important;
+  }
+  .only-mobile {
+    display: block !important;
+  }
+
+  /* Ensure the outer hero mockups wrapper is hidden on mobile so it doesn't reserve space */
+  .hero-mockups.only-desktop {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Place the static laptop screenshot directly under the hero copy */
+  .hero-laptop-mobile {
+    margin-top: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .hero-laptop-mobile-image,
+  .hero-laptop-mobile img {
+    width: 90vw !important; /* 85-95% of viewport */
+    max-width: 95% !important;
+    height: auto !important;
+    display: block !important;
+    border-radius: 16px !important;
+    margin: 24px auto !important; /* 20-30px spacing above/below */
+    object-fit: contain !important;
+  }
+
+  /* Reduce bottom padding on hero section to remove extra gap */
+  .hero-section {
+    padding-bottom: 0 !important;
+  }
+
+  /* Reduce any bottom spacing inside the hero's join/waitlist block */
+  .hero-join {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .hero-join > div {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+/* Mobile override to remove extra top space caused by desktop mockup wrapper */
+@media (max-width: 768px) {
+  .desktop-mockup-wrapper {
+    width: 100% !important;
+    max-width: 590px !important;
+    height: auto !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .desktop-mockup-wrapper > div {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+}
+
+  /* Mobile wrapper override: keep DesktopMockup whole and proportionally scaled
+     for viewports < 768px. This treats the mockup as a single image-like unit
+     (frame + screen + stand) and prevents any inner scaling/overflow/cropping. */
+  @media (max-width: 767px) {
+    .hero-laptop-mobile {
+      width: 100% !important;
+      max-width: 360px !important; /* use 380px if you prefer slightly larger */
+      margin: 16px auto 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+      transform: none !important; /* remove any scaling */
+      overflow: visible !important; /* do not clip monitor edges */
+    }
+
+    .hero-laptop-mobile img,
+    .hero-laptop-mobile svg,
+    .hero-laptop-mobile canvas,
+    .hero-laptop-mobile > * {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 100% !important;
+      object-fit: contain !important;
+      transform: none !important; /* ensure inner elements are not scaled */
+    }
+
+    /* Keep the desktop wrapper hidden on mobile, but avoid overflow:hidden which
+       would crop monitor edges if the wrapper had negative offsets. */
+    .hero-mockups.only-desktop {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      overflow: visible !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    /* Also ensure any DesktopMockup wrapper that ends up visible on mobile
+       (e.g. `.hero-laptop` exposed inside `.only-mobile` or using
+       `.hero-laptop-mobile` class) is treated as a single image-like unit.
+       This keeps the DesktopMockup component intact while preventing inner
+       elements from being clipped or scaled. */
+    .hero-laptop.only-mobile,
+    .hero-laptop.hero-laptop-mobile,
+    .only-mobile .hero-laptop {
+      width: 100% !important;
+      max-width: 360px !important; /* keep the whole monitor visible */
+      margin: 16px auto 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      box-sizing: border-box !important;
+      transform: none !important;
+      overflow: visible !important;
+    }
+
+    .hero-laptop.only-mobile > *,
+    .hero-laptop.hero-laptop-mobile > *,
+    .only-mobile .hero-laptop > * {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 100% !important;
+      object-fit: contain !important;
+      transform: none !important;
+    }
+  }
+
+  /* Mobile hero responsiveness (stack + typographic scale) */
+  @media (max-width: 768px) {
+    /* Reduce section padding and constrain width on small screens */
+    .hero-section {
+      padding: 48px 20px 56px !important;
+      max-width: 100% !important;
+      margin: 0 auto !important;
+    }
+
+    /* Stack columns to a single column so hero-left sits above visuals */
+    .hero-layout {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+      align-items: start !important;
+    }
+
+    .hero-left {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    /* Ensure hero content doesn't get squeezed by inline max-width */
+    .hero-content {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 4px !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Responsive typographic scale for h1 and subheading */
+    .hero-content h1 {
+      font-size: clamp(28px, 7vw, 34px) !important;
+      line-height: 1.2 !important;
+      margin-bottom: 12px !important;
+      max-width: 100% !important;
+      -webkit-line-clamp: unset !important;
+    }
+
+    .hero-content p {
+      font-size: 16px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 24px !important;
+      color: #6b7280 !important;
+    }
+
+    /* Bullets: loosen spacing and prevent overflow */
+    .hero-content ul,
+    .hero-content li {
+      line-height: 1.6 !important;
+      margin-bottom: 8px !important;
+      word-break: break-word !important;
+    }
+
+    /* Waitlist/email input container: full-width and centered */
+    .hero-join {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+
+    /* Shared waitlist/pill styling removed — now we target hero-only below. */
+
+    /* Reduce bottom gap between input block and mobile mockup */
+    .hero-laptop-mobile {
+      margin-top: 24px !important;
+    }
+  }
+
+  /* Extra-small phones adjustments (<= 480px) */
+  @media (max-width: 480px) {
+    .hero-section {
+      padding: 40px 20px 48px !important;
+    }
+
+    /* Title: ensure it never truncates on small phones */
+    .hero-title {
+      /* responsive sizing that still looks bold */
+      font-size: clamp(28px, 7vw, 40px) !important;
+      line-height: 1.1 !important;
+      margin-bottom: 16px !important;
+
+      /* override any truncation applied inline or elsewhere */
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      -webkit-box-orient: unset !important;
+
+      /* Ensure long words don't force overflow */
+      overflow-wrap: anywhere !important;
+      word-break: normal !important;
+      max-width: 100% !important;
+    }
+
+    .hero-subtitle {
+      font-size: 15px !important;
+      line-height: 1.6 !important;
+      margin-bottom: 20px !important;
+    }
+
+    /* Access heading: keep it to two lines on small phones */
+    .hero-access-title {
+      font-size: clamp(22px, 6.4vw, 30px) !important;
+      line-height: 1.05 !important;
+      letter-spacing: -0.02em !important;
+      max-width: 100% !important;
+      margin-bottom: 8px !important;
+    }
+
+    /* Bullets: use flex-based rows so multi-line items align with a custom dot */
+    .hero-bullets {
+      list-style: none !important;
+      padding-left: 0 !important;
+    }
+
+    .hero-bullets li {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 12px !important;
+      margin-bottom: 8px !important;
+    }
+
+    .hero-bullets .bullet-dot {
+      line-height: 1 !important;
+      margin-top: 0.35em !important; /* aligns dot with first text line */
+      font-size: inherit !important; /* keep bullet the same size as text */
+      color: #374151 !important;
+      font-weight: 500 !important;
+      display: inline-block !important;
+      width: 1em !important;
+      text-align: left !important;
+    }
+
+    /* HERO waitlist: mobile-only fix (scoped to hero only) */
+    .hero-waitlist {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      background: #fff !important;
+      border-radius: 18px !important;
+      padding: 10px !important;
+      border: 1px solid rgba(15, 23, 42, 0.18) !important;
+      box-sizing: border-box !important;
+    }
+
+    .hero-waitlist__input {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      border: 1px solid rgba(15, 23, 42, 0.18) !important;
+      border-radius: 14px !important;
+      padding: 12px 14px !important;
+      font-size: 14px !important;
+      outline: none !important;
+      background: transparent !important;
+      box-sizing: border-box !important;
+    }
+
+    .hero-waitlist__input::placeholder {
+      font-size: 12px !important;
+      color: rgba(15, 23, 42, 0.45) !important;
+    }
+
+    .hero-waitlist__btn {
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+      border-radius: 14px !important;
+      padding: 12px 18px !important;
+    }
+
+    /* Removed shared waitlist rules to avoid accidental footer styling. */
+  }

@@ -1,0 +1,71 @@
+
+> introflo.io@0.1.0 dev
+> next dev
+
+   ▲ Next.js 15.5.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.60:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ✓ Compiled /middleware in 124ms (114 modules)
+ ○ Compiling /waitlist ...
+ ✓ Compiled /waitlist in 791ms (548 modules)
+ GET /waitlist 200 in 1730ms
+ GET /waitlist 200 in 103ms
+ GET /waitlist 200 in 70ms
+ GET /waitlist 200 in 119ms
+ ✓ Compiled in 676ms (548 modules)
+ GET /waitlist 200 in 275ms
+ ✓ Compiled in 460ms (554 modules)
+ GET /waitlist 200 in 197ms
+ ✓ Compiled in 711ms (554 modules)
+ ✓ Compiled in 182ms (554 modules)
+ GET /waitlist 200 in 278ms
+ GET /waitlist 200 in 126ms
+ GET /waitlist 200 in 67ms
+ ⨯ ./app/waitlist/page.tsx
+Error:   [31mx[0m Unexpected token `{`. Expected identifier, string literal, numeric literal or [ for the computed key
+    ,-[[36;1;4m/Users/snipergang/Desktop/Introflo.io/app/waitlist/page.tsx[0m:32:1]
+ [2m29[0m |     {
+ [2m30[0m |       title: "Tranquility Behavioral",
+ [2m31[0m |       image: "/images/interior-1.jpg",
+ [2m32[0m |                 {activeMockup === "mobile" ? (
+    : [35;1m                ^[0m
+ [2m33[0m |                   <div style={{ display: "flex", gap: "30px", alignItems: "center", justifyContent: "center" }}>
+ [2m34[0m |                     <div style={{ width: "280px", height: "580px", background: "#E5E7EB", borderRadius: "40px", padding: "12px", boxShadow: activePhone === 0 ? "0 30px 60px rgba(0,0,0,0.12)" : "0 20px 40px rgba(0,0,0,0.12)", transform: activePhone === 0 ? "scale(1.05)" : "scale(1)", transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)" }}>
+ [2m35[0m |                       <div style={{ width: "100%", height: "100%", background: "#FFFFFF", borderRadius: "32px", overflow: "hidden", position: "relative" }}>
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/waitlist/page.tsx
+ ✓ Compiled in 505ms (548 modules)
+ GET /waitlist 200 in 278ms
+ GET /waitlist 200 in 67ms
+ GET /waitlist 200 in 69ms
+ GET /waitlist? 200 in 84ms
+ GET /waitlist? 200 in 77ms
+ GET /waitlist 200 in 88ms
+ ✓ Compiled in 512ms (554 modules)
+ GET /waitlist 200 in 242ms
+ GET /waitlist 200 in 75ms
+ GET /waitlist 200 in 147ms
+ ✓ Compiled in 662ms (554 modules)
+ GET /waitlist 200 in 222ms
+ ✓ Compiled in 1093ms (554 modules)
+ GET /waitlist 200 in 283ms
+ ✓ Compiled in 628ms (554 modules)
+ ✓ Compiled in 326ms (554 modules)
+ GET /waitlist 200 in 152ms
+ ✓ Compiled in 186ms (554 modules)
+ GET /waitlist 200 in 132ms
+ GET /waitlist 200 in 87ms
+ GET /waitlist 200 in 71ms
+ ✓ Compiled in 587ms (554 modules)
+ GET /waitlist 200 in 219ms
+ GET /waitlist 200 in 75ms
+ GET /waitlist 200 in 71ms

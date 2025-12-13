@@ -44,7 +44,7 @@
    ```bash
    npm run dev
    ```
-   Visit: http://localhost:3001/dashboard
+   Visit: http://localhost:3000/dashboard
 
 2. **Show Core Features**
    - Point out centered card with image

@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import LogoMark from "@/components/LogoMark";
+import Image from "next/image";
+import DesktopMockup from "./components/DesktopMockup";
 import QRCode from "qrcode";
 
 export default function Home() {
@@ -45,6 +47,7 @@ export default function Home() {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
+
 
   // Chat animation interval: reveal one more message every 2.5s and loop
   useEffect(() => {
@@ -158,6 +161,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section
+        className="hero-section"
         style={{
           padding: "80px 40px 100px",
           maxWidth: "1400px",
@@ -165,6 +169,7 @@ export default function Home() {
         }}
       >
         <div
+          className="hero-layout"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -172,432 +177,446 @@ export default function Home() {
             alignItems: "center",
           }}
         >
-          <div style={{ maxWidth: "600px" }}>
-            <h1
-              style={{
-                fontSize: "clamp(42px, 5.4vw, 64px)",
-                fontWeight: 800,
-                lineHeight: 1.1,
-                marginBottom: "24px",
-                background: "var(--accent-warm-primary)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                maxWidth: "780px",
-              }}
-            >
-              We empower care teams to connect faster and smarter.
-            </h1>
-            <p
-              style={{
-                fontSize: "20px",
-                color: "#6b7280",
-                lineHeight: 1.7,
-                marginBottom: "40px",
-              }}
-            >
-              Connect with verified facilities, match instantly, chat securely,
-              and manage referrals—all in one streamlined workspace.
-            </p>
-            <div style={{ display: "flex", gap: "16px" }}>
-              <Link
-                href="/app/dashboard"
+          <div className="hero-left">
+              <div className="hero-content" style={{ maxWidth: "600px" }}>
+              <h1
+                className="hero-title"
                 style={{
-                  padding: "16px 36px",
-                  fontSize: "17px",
-                  borderRadius: "12px",
-                  fontWeight: 600,
+                  fontWeight: 800,
                   background: "var(--accent-warm-primary)",
-                  color: "white",
-                  border: "none",
-                  textDecoration: "none",
-                  display: "inline-block",
-                  boxShadow: "0 4px 14px rgba(217, 162, 139, 0.15)",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-2px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 6px 20px rgba(217, 162, 139, 0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 14px rgba(217, 162, 139, 0.15)";
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                 }}
               >
-                Get Started
-              </Link>
-              <Link
-                href="/app/dashboard"
+                We empower care teams to connect faster and smarter.
+              </h1>
+              <p
+                className="hero-subtitle"
                 style={{
-                  padding: "16px 36px",
-                  fontSize: "17px",
-                  borderRadius: "12px",
-                  fontWeight: 600,
-                  background: "white",
-                  color: "var(--accent-warm-primary)",
-                  border: "2px solid var(--accent-warm-primary)",
-                  textDecoration: "none",
-                  display: "inline-block",
-                  transition: "all 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "#fff5f3";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "white";
+                  color: "#6b7280",
                 }}
               >
-                View Demo
-              </Link>
-            </div>
-          </div>
-
-          {/* Two iPhone Devices Side by Side */}
-          <div
-            style={{
-              display: "flex",
-              gap: "30px",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {/* Phone 1 - Swipe Deck */}
-            <div
-              style={{
-                width: "280px",
-                height: "580px",
-                background: "#1f2937",
-                borderRadius: "40px",
-                padding: "12px",
-                boxShadow:
-                  activePhone === 0
-                    ? "0 30px 60px rgba(139, 92, 246, 0.4)"
-                    : "0 20px 40px rgba(0,0,0,0.2)",
-                transform: activePhone === 0 ? "scale(1.05)" : "scale(1)",
-                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  background:
-                    "linear-gradient(135deg, #faf5ff 0%, #f5f3ff 100%)",
-                  borderRadius: "32px",
-                  overflow: "hidden",
-                  position: "relative",
-                }}
-              >
-                {/* Status Bar */}
-                <div
+                Connect with verified facilities, match instantly, chat
+                securely, and manage referrals—all in one streamlined workspace.
+              </p>
+              <div style={{ display: "flex", gap: "16px" }}>
+                <Link
+                  href="/app/dashboard"
                   style={{
-                    padding: "16px 20px 8px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontSize: "11px",
+                    padding: "16px 36px",
+                    fontSize: "17px",
+                    borderRadius: "12px",
                     fontWeight: 600,
-                    color: "#111827",
-                  }}
-                >
-                  <span>9:41</span>
-                  <span>●●●●</span>
-                </div>
-
-                {/* App Header */}
-                <div style={{ padding: "16px 20px", textAlign: "center" }}>
-                  <div
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      margin: "0 auto 8px",
-                      borderRadius: "8px",
-                      background: "var(--accent-warm-primary)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "16px",
-                    }}
-                  >
-                    🏥
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "13px",
-                      fontWeight: 700,
-                      marginTop: "8px",
-                      background: "var(--accent-warm-primary)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                  >
-                    introflo.io
-                  </div>
-                </div>
-
-                {/* Facility Card */}
-                <div style={{ padding: "0 20px" }}>
-                  <div
-                    style={{
-                      background: "white",
-                      borderRadius: "20px",
-                      overflow: "hidden",
-                      boxShadow: "0 8px 24px rgba(217, 162, 139, 0.15)",
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: "220px",
-                        background:
-                          "linear-gradient(135deg, var(--accent-warm-primary) 0%, var(--accent-warm-secondary) 100%)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
-                        fontSize: "48px",
-                      }}
-                    >
-                      🏥
-                    </div>
-                    <div style={{ padding: "16px" }}>
-                      <div
-                        style={{
-                          fontSize: "16px",
-                          fontWeight: 700,
-                          marginBottom: "6px",
-                        }}
-                      >
-                        The SD Mindset
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "12px",
-                          color: "#6b7280",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        📍 Coral Springs, FL
-                      </div>
-                      <div style={{ fontSize: "10px", color: "#9ca3af" }}>
-                        Therapy • IOP • Counseling
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Swipe Buttons */}
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "16px",
-                      justifyContent: "center",
-                      marginTop: "20px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                        background: "white",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "24px",
-                        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                      }}
-                    >
-                      ✕
-                    </div>
-                    <div
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
-                        background: "var(--accent-warm-primary)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "24px",
-                        color: "white",
-                        boxShadow: "0 4px 12px rgba(217, 162, 139, 0.15)",
-                      }}
-                    >
-                      ♥
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Phone 2 - Chat View */}
-            <div
-              style={{
-                width: "280px",
-                height: "580px",
-                background: "#1f2937",
-                borderRadius: "40px",
-                padding: "12px",
-                boxShadow:
-                  activePhone === 1
-                    ? "0 30px 60px rgba(217, 162, 139, 0.15)"
-                    : "0 20px 40px rgba(0,0,0,0.2)",
-                transform: activePhone === 1 ? "scale(1.05)" : "scale(1)",
-                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-              }}
-            >
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  background: "white",
-                  borderRadius: "32px",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {/* Status Bar */}
-                <div
-                  style={{
-                    padding: "16px 20px 8px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    fontSize: "11px",
-                    fontWeight: 600,
-                    color: "#111827",
-                  }}
-                >
-                  <span>9:41</span>
-                  <span>●●●●</span>
-                </div>
-
-                {/* Chat Header */}
-                <div
-                  style={{
-                    padding: "12px 20px",
                     background: "var(--accent-warm-primary)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "12px",
+                    color: "white",
+                    border: "none",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    boxShadow: "0 4px 14px rgba(217, 162, 139, 0.15)",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 6px 20px rgba(217, 162, 139, 0.15)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 14px rgba(217, 162, 139, 0.15)";
                   }}
                 >
+                  Get Started
+                </Link>
+                <Link
+                  href="/app/dashboard"
+                  style={{
+                    padding: "16px 36px",
+                    fontSize: "17px",
+                    borderRadius: "12px",
+                    fontWeight: 600,
+                    background: "white",
+                    color: "var(--accent-warm-primary)",
+                    border: "2px solid var(--accent-warm-primary)",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    transition: "all 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "#fff5f3";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "white";
+                  }}
+                >
+                  View Demo
+                </Link>
+              </div>
+            </div>
+
+            {/* Two iPhone Devices Side by Side */}
+            <div className="hero-right">
+              <div
+                className="hero-mockups only-desktop"
+                style={{
+                  width: 590,
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div
+                  className="phone-mockups"
+                  style={{
+                    display: "flex",
+                    gap: "30px",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {/* Phone 1 - Swipe Deck */}
                   <div
                     style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      background: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "20px",
+                      width: "280px",
+                      height: "580px",
+                      background: "#1f2937",
+                      borderRadius: "40px",
+                      padding: "12px",
+                      boxShadow:
+                        activePhone === 0
+                          ? "0 30px 60px rgba(139, 92, 246, 0.4)"
+                          : "0 20px 40px rgba(0,0,0,0.2)",
+                      transform: activePhone === 0 ? "scale(1.05)" : "scale(1)",
+                      transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                     }}
                   >
-                    🏥
-                  </div>
-                  <div>
                     <div
                       style={{
-                        fontSize: "14px",
-                        fontWeight: 700,
-                        color: "white",
+                        width: "100%",
+                        height: "100%",
+                        background:
+                          "linear-gradient(135deg, #faf5ff 0%, #f5f3ff 100%)",
+                        borderRadius: "32px",
+                        overflow: "hidden",
+                        position: "relative",
                       }}
                     >
-                      The SD Mindset
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        color: "rgba(255, 255, 255, 0.9)",
-                      }}
-                    >
-                      Online
-                    </div>
-                  </div>
-                </div>
+                      {/* Status Bar */}
+                      <div
+                        style={{
+                          padding: "16px 20px 8px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          fontSize: "11px",
+                          fontWeight: 600,
+                          color: "#111827",
+                        }}
+                      >
+                        <span>9:41</span>
+                        <span>●●●●</span>
+                      </div>
 
-                {/* Messages (Animated) */}
-                <div
-                  style={{
-                    flex: 1,
-                    padding: "16px",
-                    background: "#f9fafb",
-                    overflow: "hidden",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  {chatMessages.slice(0, chatStep).map((m) => (
-                    <div
-                      key={m.id}
-                      style={{
-                        marginBottom: "12px",
-                        display: "flex",
-                        justifyContent: m.outgoing ? "flex-end" : "flex-start",
-                        opacity: 0,
-                        animation: "fadeIn 0.5s forwards",
-                      }}
-                    >
-                      <div>
+                      {/* App Header */}
+                      <div style={{ padding: "16px 20px", textAlign: "center" }}>
                         <div
                           style={{
-                            maxWidth: "80%",
-                            background: m.outgoing
-                              ? "var(--accent-warm-primary)"
-                              : "white",
-                            color: m.outgoing ? "white" : "#111827",
-                            padding: "10px 14px",
-                            borderRadius: m.outgoing
-                              ? "16px 16px 4px 16px"
-                              : "16px 16px 16px 4px",
-                            fontSize: "12px",
-                            lineHeight: 1.5,
-                            boxShadow: m.outgoing
-                              ? "0 4px 12px rgba(217, 162, 139, 0.15)"
-                              : "0 2px 8px rgba(0,0,0,0.05)",
-                            transition: "transform 0.3s",
+                            width: "32px",
+                            height: "32px",
+                            margin: "0 auto 8px",
+                            borderRadius: "8px",
+                            background: "var(--accent-warm-primary)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "16px",
                           }}
                         >
-                          {m.text}
+                          🏥
                         </div>
                         <div
                           style={{
-                            fontSize: "10px",
-                            color: "#9ca3af",
-                            marginTop: "4px",
-                            textAlign: m.outgoing ? "right" : "left",
+                            fontSize: "13px",
+                            fontWeight: 700,
+                            marginTop: "8px",
+                            background: "var(--accent-warm-primary)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
                           }}
                         >
-                          {m.time}
+                          introflo.io
+                        </div>
+                      </div>
+
+                      {/* Facility Card */}
+                      <div style={{ padding: "0 20px" }}>
+                        <div
+                          style={{
+                            background: "white",
+                            borderRadius: "20px",
+                            overflow: "hidden",
+                            boxShadow: "0 8px 24px rgba(217, 162, 139, 0.15)",
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "220px",
+                              background:
+                                "linear-gradient(135deg, var(--accent-warm-primary) 0%, var(--accent-warm-secondary) 100%)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              color: "white",
+                              fontSize: "48px",
+                            }}
+                          >
+                            🏥
+                          </div>
+                          <div style={{ padding: "16px" }}>
+                            <div
+                              style={{
+                                fontSize: "16px",
+                                fontWeight: 700,
+                                marginBottom: "6px",
+                              }}
+                            >
+                              The SD Mindset
+                            </div>
+                            <div
+                              style={{
+                                fontSize: "12px",
+                                color: "#6b7280",
+                                marginBottom: "8px",
+                              }}
+                            >
+                              📍 Coral Springs, FL
+                            </div>
+                            <div style={{ fontSize: "10px", color: "#9ca3af" }}>
+                              Therapy • IOP • Counseling
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Swipe Buttons */}
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "16px",
+                            justifyContent: "center",
+                            marginTop: "20px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                              borderRadius: "50%",
+                              background: "white",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "24px",
+                              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                            }}
+                          >
+                            ✕
+                          </div>
+                          <div
+                            style={{
+                              width: "50px",
+                              height: "50px",
+                              borderRadius: "50%",
+                              background: "var(--accent-warm-primary)",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "24px",
+                              color: "white",
+                              boxShadow: "0 4px 12px rgba(217, 162, 139, 0.15)",
+                            }}
+                          >
+                            ♥
+                          </div>
                         </div>
                       </div>
                     </div>
-                  ))}
-                  {/* Simple keyframes injection */}
-                  <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: translateY(0);} }`}</style>
-                </div>
+                  </div>
 
-                {/* Message Input */}
-                <div
-                  style={{
-                    padding: "12px 16px",
-                    borderTop: "1px solid #e5e7eb",
-                    background: "white",
-                  }}
-                >
+                  {/* Phone 2 - Chat View */}
                   <div
                     style={{
-                      background: "#f3f4f6",
-                      borderRadius: "20px",
-                      padding: "10px 16px",
-                      fontSize: "12px",
-                      color: "#9ca3af",
+                      width: "280px",
+                      height: "580px",
+                      background: "#1f2937",
+                      borderRadius: "40px",
+                      padding: "12px",
+                      boxShadow:
+                        activePhone === 1
+                          ? "0 30px 60px rgba(217, 162, 139, 0.15)"
+                          : "0 20px 40px rgba(0,0,0,0.2)",
+                      transform: activePhone === 1 ? "scale(1.05)" : "scale(1)",
+                      transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                     }}
                   >
-                    Type a message...
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        background: "white",
+                        borderRadius: "32px",
+                        overflow: "hidden",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      {/* Status Bar */}
+                      <div
+                        style={{
+                          padding: "16px 20px 8px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          fontSize: "11px",
+                          fontWeight: 600,
+                          color: "#111827",
+                        }}
+                      >
+                        <span>9:41</span>
+                        <span>●●●●</span>
+                      </div>
+
+                      {/* Chat Header */}
+                      <div
+                        style={{
+                          padding: "12px 20px",
+                          background: "var(--accent-warm-primary)",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "12px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                            background: "white",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "20px",
+                          }}
+                        >
+                          🏥
+                        </div>
+                        <div>
+                          <div
+                            style={{
+                              fontSize: "14px",
+                              fontWeight: 700,
+                              color: "white",
+                            }}
+                          >
+                            The SD Mindset
+                          </div>
+                          <div
+                            style={{
+                              fontSize: "11px",
+                              color: "rgba(255, 255, 255, 0.9)",
+                            }}
+                          >
+                            Online
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Messages (Animated) */}
+                      <div
+                        style={{
+                          flex: 1,
+                          padding: "16px",
+                          background: "#f9fafb",
+                          overflow: "hidden",
+                          display: "flex",
+                          flexDirection: "column",
+                        }}
+                      >
+                        {chatMessages.slice(0, chatStep).map((m) => (
+                          <div
+                            key={m.id}
+                            style={{
+                              marginBottom: "12px",
+                              display: "flex",
+                              justifyContent: m.outgoing ? "flex-end" : "flex-start",
+                              opacity: 0,
+                              animation: "fadeIn 0.5s forwards",
+                            }}
+                          >
+                            <div>
+                              <div
+                                style={{
+                                  maxWidth: "80%",
+                                  background: m.outgoing ? "var(--accent-warm-primary)" : "white",
+                                  color: m.outgoing ? "white" : "#111827",
+                                  padding: "10px 14px",
+                                  borderRadius: m.outgoing ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
+                                  fontSize: "12px",
+                                  lineHeight: 1.5,
+                                  boxShadow: m.outgoing ? "0 4px 12px rgba(217, 162, 139, 0.15)" : "0 2px 8px rgba(0,0,0,0.05)",
+                                  transition: "transform 0.3s",
+                                }}
+                              >
+                                {m.text}
+                              </div>
+                              <div
+                                style={{
+                                  fontSize: "10px",
+                                  color: "#9ca3af",
+                                  marginTop: "4px",
+                                  textAlign: m.outgoing ? "right" : "left",
+                                }}
+                              >
+                                {m.time}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        {/* Simple keyframes injection */}
+                        <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(4px);} to { opacity: 1; transform: translateY(0);} }`}</style>
+                      </div>
+
+                      {/* Message Input */}
+                      <div
+                        style={{
+                          padding: "12px 16px",
+                          borderTop: "1px solid #e5e7eb",
+                          background: "white",
+                        }}
+                      >
+                        <div
+                          style={{
+                            background: "#f3f4f6",
+                            borderRadius: "20px",
+                            padding: "10px 16px",
+                            fontSize: "12px",
+                            color: "#9ca3af",
+                          }}
+                        >
+                          Type a message...
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
+                {/* Desktop mockup in the right column (desktop/tablet only) */}
+                <div className="hero-laptop" style={{ marginLeft: 0 }}>
+                  <DesktopMockup />
+                </div>
               </div>
+            </div>
+
+            <div suppressHydrationWarning className="hero-laptop-mobile only-mobile">
+              <img suppressHydrationWarning className="hero-laptop-mobile-image" src="/images/MobileView_Static.png" alt="Mobile layout mockup" />
             </div>
           </div>
         </div>
@@ -621,6 +640,7 @@ export default function Home() {
             </p>
           </div>
           <div
+            className="features-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
@@ -644,7 +664,11 @@ export default function Home() {
                 desc: "All facilities verified and credentialed",
               },
             ].map((feature, i) => (
-              <div key={i} style={{ textAlign: "center", padding: "32px" }}>
+              <div
+                key={i}
+                className="feature-card"
+                style={{ textAlign: "center", padding: "32px" }}
+              >
                 <div style={{ fontSize: "48px", marginBottom: "16px" }}>
                   {feature.icon}
                 </div>
